@@ -63,7 +63,7 @@
 }
 
 @font-face {
-  font-family: Gilroy_Regular;
+  font-family: Gilroy-Regular;
   font-style: normal;
   src: url("Gilroy-Regular.woff2") format("woff2"),
     url("Gilroy-Regular.woff") format("woff");
@@ -136,7 +136,7 @@
 
 @font-face {
   font-family: Gilroy-SemiBold;
-  font-style: normal;
+  font-style: bold;
   src: url("Gilroy-SemiBold.woff2") format("woff2"),
     url("Gilroy-SemiBold.woff") format("woff");
   font-display: swap;
