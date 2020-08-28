@@ -1,7 +1,7 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import SEO from "../components/seo"
-
+import { Phone, Mail, Home } from "@material-ui/icons"
 import styled from "styled-components"
 import Layout from "../components/layout"
 
@@ -45,6 +45,37 @@ export default function Header() {
                   )}
                 </span>
               </StyledSection>
+              <ContactContainer>
+                <h3>Hafa Samband</h3>
+                <IconContainer>
+                  <Home />
+                  <ContactInfo>
+                    <a href="https://www.google.com/maps/place/Kaupangur/@65.6792233,-18.1110733,17z/data=!3m1!4b1!4m5!3m4!1s0x48d28f04134104fd:0x8ef7b925e189c8d3!8m2!3d65.6792211!4d-18.1088846">
+                      Kaupangur
+                    </a>
+                  </ContactInfo>
+                </IconContainer>
+                <IconContainer>
+                  <Phone />
+                  <ContactInfo>462 6099</ContactInfo>
+                </IconContainer>
+                <IconContainer>
+                  <Phone />
+                  <ContactInfo>891 7970</ContactInfo>
+                </IconContainer>
+                <IconContainer>
+                  <Mail />
+                  <ContactInfo>
+                    <a
+                      a
+                      href="mailto: formradgjof@formradgjof.is"
+                      target="_blank"
+                    >
+                      formradgjof@formradgjof.is
+                    </a>
+                  </ContactInfo>
+                </IconContainer>
+              </ContactContainer>
             </AboutContainer>
           </Layout>
         )
@@ -54,7 +85,7 @@ export default function Header() {
 }
 
 const AboutContainer = styled.div`
-  padding: 0px 25px;
+  padding: 0px 24px;
 `
 
 const StyledHeading = styled.h1`
@@ -65,16 +96,16 @@ const StyledHeading = styled.h1`
 
 const StyledImage = styled.img`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 36px;
   @media (min-width: 768px) {
-    width: 35%;
+    max-width: 450px;
     margin-right: 25px;
   }
 `
 const StyledParagraph = styled.p`
   margin-bottom: 10px;
   font-family: Gilroy-Regular;
-  font-size: 1.1em;
+  font-size: 1.12em;
   letter-spacing: 0.02em;
 `
 
@@ -84,4 +115,18 @@ const StyledSection = styled.section`
   @media (min-width: 768px) {
     flex-direction: row;
   }
+`
+const ContactContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const ContactInfo = styled.div`
+  margin-left: 12px;
+`
+
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 12px;
+  align-items: center;
 `

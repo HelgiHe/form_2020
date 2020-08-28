@@ -1,8 +1,7 @@
 import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
-import logo from "../assets/form_logo.jpg"
+import logo from "../images/formlogo.svg"
 
 const Header = ({ siteTitle }) => (
   <StyledHeader>
@@ -30,10 +29,14 @@ const StyledHeader = styled.header`
 const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  width: 300px;
+  font-family: Gilroy-Medium;
+  font-size: 1.3em;
 `
 
 const StyledImage = styled.img`
-  width: 100px;
+  width: 116px;
 `
 
 export default Header

@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 
@@ -22,18 +21,38 @@ const Layout = ({ children }) => {
       <Header siteTitle={data.site.siteMetadata.title} />
       <PageContainer>
         <main>{children}</main>
-        <StyledFooter>© {new Date().getFullYear()}</StyledFooter>
+        <StyledFooter>
+          <span>Form ráðgjöf</span>
+          <span>Kaupangi</span>
+          <span>600 Akureyri</span>
+          <span>462 6099</span>
+          <a a href="mailto: formradgjof@formradgjof.is">
+            formradgjof@formradgjof.is
+          </a>
+        </StyledFooter>
       </PageContainer>
     </>
   )
 }
 
-const StyledFooter = styled.footer`
-  position: absolute;
-  bottom: 0;
-`
 const PageContainer = styled.div`
-  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 92vh;
+`
+const StyledFooter = styled.footer`
+  margin-top: auto;
+  background: var(--bone-white);
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  align-items: center;
+  font-size: 1.1em;
+  justify-content: space-around;
+  @media (min-width: 768px) {
+    height: 80px;
+    flex-direction: row;
+  }
 `
 
 export default Layout

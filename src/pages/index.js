@@ -11,7 +11,6 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Heim" />
       <Link to="/news/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
     </Layout>
   )
 }
