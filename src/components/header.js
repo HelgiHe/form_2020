@@ -9,7 +9,7 @@ const Header = ({ siteTitle }) => (
       <StyledImage src={logo} alt="logo" />
     </Link>
     <StyledNav>
-      <p>Fréttir</p>
+      <Link to="/news/">Fréttir</Link>
       <p>Verk</p>
       <Link to="/about">Stofan</Link>
     </StyledNav>

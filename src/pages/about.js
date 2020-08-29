@@ -50,7 +50,11 @@ export default function Header() {
                 <IconContainer>
                   <Home />
                   <ContactInfo>
-                    <a href="https://www.google.com/maps/place/Kaupangur/@65.6792233,-18.1110733,17z/data=!3m1!4b1!4m5!3m4!1s0x48d28f04134104fd:0x8ef7b925e189c8d3!8m2!3d65.6792211!4d-18.1088846">
+                    <a
+                      href="https://www.google.com/maps/place/Kaupangur/@65.6792233,-18.1110733,17z/data=!3m1!4b1!4m5!3m4!1s0x48d28f04134104fd:0x8ef7b925e189c8d3!8m2!3d65.6792211!4d-18.1088846"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Kaupangur
                     </a>
                   </ContactInfo>
@@ -66,11 +70,7 @@ export default function Header() {
                 <IconContainer>
                   <Mail />
                   <ContactInfo>
-                    <a
-                      a
-                      href="mailto: formradgjof@formradgjof.is"
-                      target="_blank"
-                    >
+                    <a href="mailto: formradgjof@formradgjof.is">
                       formradgjof@formradgjof.is
                     </a>
                   </ContactInfo>

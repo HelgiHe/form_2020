@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
           <span>Kaupangi</span>
           <span>600 Akureyri</span>
           <span>462 6099</span>
-          <a a href="mailto: formradgjof@formradgjof.is">
+          <a href="mailto: formradgjof@formradgjof.is">
             formradgjof@formradgjof.is
           </a>
         </StyledFooter>
