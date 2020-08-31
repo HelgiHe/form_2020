@@ -22,6 +22,12 @@ module.exports = {
         path: `${__dirname}/src/fonts`,
       },
     },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        displayName: true,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

@@ -2,10 +2,12 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 
+import Modal from "./modal"
 import Header from "./header"
 import "./layout.css"
 
 const Layout = ({ children }) => {
+  const [modalVisible, setModalVisible] = React.useState(false)
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -16,9 +18,15 @@ const Layout = ({ children }) => {
     }
   `)
 
+  const setModalVisibility = visibility => {
+    setModalVisible(visibility)
+  }
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header
+        setModalVisibility={setModalVisibility}
+        siteTitle={data.site.siteMetadata.title}
+      />
       <PageContainer>
         <main>{children}</main>
         <StyledFooter>
@@ -31,6 +39,7 @@ const Layout = ({ children }) => {
           </a>
         </StyledFooter>
       </PageContainer>
+      <Modal visible={modalVisible} />
     </>
   )
 }
@@ -38,7 +47,8 @@ const Layout = ({ children }) => {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 92vh;
+  margin-top: 80px;
+  min-height: calc(100vh - 80px); ;
 `
 const StyledFooter = styled.footer`
   margin-top: auto;
@@ -49,6 +59,7 @@ const StyledFooter = styled.footer`
   align-items: center;
   font-size: 1.1em;
   justify-content: space-around;
+  z-index: -2;
   @media (min-width: 768px) {
     height: 80px;
     flex-direction: row;

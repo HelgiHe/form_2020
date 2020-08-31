@@ -25,7 +25,6 @@ const NewsPage = () => {
       }
     }
   `)
-  console.log(data.allSanityNews.edges)
   return (
     <Layout>
       <SEO title="Fréttir" />
