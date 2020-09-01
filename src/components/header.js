@@ -32,7 +32,7 @@ const Header = ({ setModalVisibility, siteTitle }) => {
       </Link>
       <StyledNav>
         <Link to="/news/">Fréttir</Link>
-        <p>Verk</p>
+        <Link to="/verk">Stofan</Link>
         <Link to="/about">Stofan</Link>
       </StyledNav>
       <NavButton onClick={() => setOpen(state => !state)} ref={ref}>

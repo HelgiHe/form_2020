@@ -40,7 +40,9 @@ export default function Header() {
                 <span>
                   {allSanityAbout.edges[0].node.about.map(
                     ({ _rawChildren }) => (
-                      <StyledParagraph>{_rawChildren[0].text}</StyledParagraph>
+                      <StyledParagraph key={_rawChildren[0]._key}>
+                        {_rawChildren[0].text}
+                      </StyledParagraph>
                     )
                   )}
                 </span>

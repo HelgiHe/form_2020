@@ -23,6 +23,7 @@ const Layout = ({ children }) => {
   }
   return (
     <>
+      <Modal visible={modalVisible} />
       <Header
         setModalVisibility={setModalVisibility}
         siteTitle={data.site.siteMetadata.title}
@@ -39,7 +40,6 @@ const Layout = ({ children }) => {
           </a>
         </StyledFooter>
       </PageContainer>
-      <Modal visible={modalVisible} />
     </>
   )
 }
