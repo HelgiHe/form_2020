@@ -29,7 +29,6 @@ const News = () => {
     }
   `)
   const { allSanityNews } = data
-  console.log(allSanityNews.edges)
   return (
     <Layout>
       <SEO title="Fréttir" />

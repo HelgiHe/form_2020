@@ -21,7 +21,7 @@ const Article = ({ pageContext }) => {
           </TextContainer>
         </NewsContainer>
         <StyledLink to="/news">
-          <ArrowBack /> <span className="goBackText">Til Baka</span>
+          <ArrowBack /> <span>Til Baka</span>
         </StyledLink>
       </Container>
     </Layout>
