@@ -27,3 +27,18 @@ a {
 p {
   margin: 0px;
 }
+
+/* css for react slick remove when proper carousel is ready */
+
+.slick-prev {
+  left: 2% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 2% !important;
+  z-index: 1;
+}
+.slick-prev:before,
+.slick-next:before {
+  font-size: 48px !important;
+}

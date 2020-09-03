@@ -7,7 +7,7 @@ const MobileMenu = ({ isOpen }) => {
     <MobileNavWrapper isOpen={isOpen}>
       <MobileNav>
         <StyledLink to="/news">Fréttir</StyledLink>
-        <StyledLink to="/verk">Verk</StyledLink>
+        <StyledLink to="/projects">Verk</StyledLink>
         <StyledLink to="/about">Stofan</StyledLink>
       </MobileNav>
     </MobileNavWrapper>

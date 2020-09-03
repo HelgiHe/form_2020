@@ -8,7 +8,8 @@ const ListItem = ({ title, imagePath, author = "", type = "" }) => {
         <StyledImage src={imagePath} alt={title} />
       </ImageContainer>
       <Title>{title}</Title>
-      <Author>{author}</Author>
+      {author && <Author>{author}</Author>}
+      {type && <Type>{type}</Type>}
     </Container>
   )
 }
@@ -27,18 +28,24 @@ const Author = styled.p`
   color: var(--darkGrey);
   font-family: Gilroy-LightItalic;
 `
+const Type = styled.h5`
+  margin-top: 3px;
+  font-family: Gilroy-Regular;
+`
 
 const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.1);
-  width: 160px;
+  width: 200px;
   height: 160px;
 `
 
 const StyledImage = styled.img`
-  object-fit: contain;
+  object-fit: cover;
+  width: 200px;
+  height: 160px;
 `
 
 export default ListItem

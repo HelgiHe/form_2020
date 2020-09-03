@@ -5,7 +5,7 @@ import { Phone, Mail, Home } from "@material-ui/icons"
 import styled from "styled-components"
 import Layout from "../components/layout"
 
-export default function Header() {
+export default function About() {
   return (
     <StaticQuery
       query={graphql`

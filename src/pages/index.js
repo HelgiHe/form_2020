@@ -22,6 +22,7 @@ const IndexPage = ({ data }) => {
 
   const settings = {
     dots: true,
+    arrows: true,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -29,9 +30,8 @@ const IndexPage = ({ data }) => {
     autoplaySpeed: 7000,
     pauseOnHover: true,
     pauseOnFocus: true,
+    className: "slides",
   }
-
-  console.log(featured)
 
   return (
     <Layout>
@@ -39,9 +39,9 @@ const IndexPage = ({ data }) => {
       <Slider {...settings}>
         {featured.map(item => {
           return (
-            <ImageContainer>
+            <ImageContainer key="item.title">
               <StyledImage src={item.image} alt={item.title} />
-              <Link to={`/verk/${slugify(item.title)}`}>
+              <Link to={`/projects/${slugify(item.title)}`}>
                 <ImageText>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
@@ -71,8 +71,8 @@ const ImageText = styled.div`
   position: absolute;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  height: 250px;
-  width: 350px;
+  height: 220px;
+  width: 340px;
   padding: 24px;
   color: white;
 `

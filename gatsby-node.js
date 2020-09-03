@@ -21,7 +21,7 @@ const slugify = string => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const queryResults = await graphql(`
+  const queryNewsResults = await graphql(`
     query AllNews {
       allSanityNews(sort: { fields: [_createdAt], order: DESC }) {
         edges {
@@ -44,12 +44,43 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
 
   const articleTemplate = path.resolve(`src/templates/article.js`)
-  queryResults.data.allSanityNews.edges.forEach(newsItem => {
+  queryNewsResults.data.allSanityNews.edges.forEach(newsItem => {
     createPage({
       path: `/news/${slugify(newsItem.node.title)}`,
       component: articleTemplate,
       context: {
         article: newsItem,
+      },
+    })
+  })
+
+  const allProjectsQueryResults = await graphql(`
+    query ProjectsQuery {
+      allSanityVerk {
+        edges {
+          node {
+            description {
+              _rawChildren
+            }
+            imagesGallery {
+              asset {
+                url
+              }
+            }
+            title
+          }
+        }
+      }
+    }
+  `)
+
+  const projectTemplate = path.resolve(`src/templates/project.js`)
+  allProjectsQueryResults.data.allSanityVerk.edges.forEach(projectItem => {
+    createPage({
+      path: `/projects/${slugify(projectItem.node.title)}`,
+      component: projectTemplate,
+      context: {
+        project: projectItem,
       },
     })
   })

@@ -37,9 +37,11 @@ const News = () => {
         <NewsContainer>
           {allSanityNews.edges.map(newsItem => {
             return (
-              <Link to={`/news/${slugify(newsItem.node.title)}`}>
+              <Link
+                to={`/news/${slugify(newsItem.node.title)}`}
+                key={newsItem.node.title}
+              >
                 <ListItem
-                  key="newsItem.node.title"
                   title={newsItem.node.title}
                   imagePath={`${newsItem.node.image.asset.url}?w=160`}
                   author={newsItem.node.author}
