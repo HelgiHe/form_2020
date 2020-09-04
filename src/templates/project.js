@@ -7,10 +7,9 @@ import { Link } from "gatsby"
 
 const Project = ({ pageContext }) => {
   const { project } = pageContext
-  const [mainImage, setMainImge] = React.useState(
+  const [mainImage, setMainImage] = React.useState(
     project.node.imagesGallery[0].asset.url
   )
-  console.log(project)
   return (
     <Layout>
       <Container>
@@ -23,6 +22,19 @@ const Project = ({ pageContext }) => {
             ))}
           </TextContainer>
         </ProjectContainer>
+        <ImagesContainer>
+          <ExtraImageContainer>
+            {project.node.imagesGallery.map(image => {
+              return (
+                <ExtraImage
+                  src={`${image.asset.url}?w=450`}
+                  alt={project.node.title}
+                  onMouseEnter={() => setMainImage(`${image.asset.url}`)}
+                ></ExtraImage>
+              )
+            })}
+          </ExtraImageContainer>
+        </ImagesContainer>
         <StyledLink to="/projects">
           <ArrowBack /> <span>Til Baka</span>
         </StyledLink>
@@ -38,10 +50,34 @@ const Title = styled.h2`
   margin-bottom: 4px;
 `
 
+const ExtraImage = styled.img`
+  height: 75px;
+  width: 100px;
+  object-fit: cover;
+  margin-right: 12px;
+  filter: grayscale(100%);
+  &:hover {
+    filter: none;
+  }
+`
+
+const ExtraImageContainer = styled.span`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+`
+
+const ImagesContainer = styled.span`
+  display: flex;
+  flex-direction: column;
+`
+
 const StyledLink = styled(Link)`
   margin-top: 12px;
   display: flex;
   align-items: center;
+  margin-bottom: 24px;
   &:hover {
     svg {
       transition: all 0.22s ease-out;
@@ -75,9 +111,10 @@ const StyledText = styled.p`
 const StyledImage = styled.img`
   margin: 12px 0px;
   object-fit: contain;
-  width: 45%;
+  width: 100%;
   @media (min-width: 768px) {
     margin-right: 24px;
+    width: 45%;
     max-width: 50%;
     max-height: 70vh;
   }

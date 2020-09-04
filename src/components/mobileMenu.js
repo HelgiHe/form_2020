@@ -33,7 +33,7 @@ const MobileNav = styled.nav`
   margin-top: 30vh;
   display: flex;
   flex-direction: column;
-  width: 89%;
+  width: 80%;
   align-items: flex-end;
   text-align: right;
   margin-right: 12px;
