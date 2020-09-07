@@ -71,10 +71,14 @@ const ImageText = styled.div`
   position: absolute;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  height: 220px;
-  width: 340px;
-  padding: 24px;
   color: white;
+  height: 116px;
+  width: 100vw;
+  @media (min-width: 768px) {
+    height: 220px;
+    width: 340px;
+    padding: 24px;
+  }
 `
 
 export const query = graphql`

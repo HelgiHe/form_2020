@@ -33,6 +33,7 @@ const Container = styled.article`
 `
 const Title = styled.h2`
   margin-bottom: 4px;
+  font-family: Gilroy-Medium;
 `
 
 const StyledLink = styled(Link)`
@@ -67,6 +68,7 @@ const TextContainer = styled.span`
   flex-direction: column;
   font-family: Gilroy-Regular;
   font-size: 1.2em;
+  margin-bottom: 24px;
   @media (min-width: 768px) {
     margin-left: 24px;
   }

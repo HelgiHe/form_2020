@@ -48,7 +48,7 @@ export default function About() {
                 </span>
               </StyledSection>
               <ContactContainer>
-                <h3>Hafa Samband</h3>
+                <ContactHeading>Hafa Samband</ContactHeading>
                 <IconContainer>
                   <Home />
                   <ContactInfo>
@@ -90,6 +90,10 @@ const AboutContainer = styled.div`
   padding: 0px 24px;
 `
 
+const ContactHeading = styled.h3`
+  font-family: Gilroy-Bold;
+`
+
 const StyledHeading = styled.h1`
   font-family: Gilroy-bold;
   font-size: 1.8em;
@@ -122,6 +126,8 @@ const StyledSection = styled.section`
 const ContactContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 24px;
+  margin-bottom: 24px;
 `
 const ContactInfo = styled.div`
   margin-left: 12px;

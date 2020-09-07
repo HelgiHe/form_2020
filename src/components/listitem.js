@@ -39,14 +39,20 @@ const ImageContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.1);
-  width: 200px;
-  height: 160px;
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 200px;
+    height: 160px;
+  }
 `
 
 const StyledImage = styled.img`
   object-fit: cover;
-  width: 200px;
-  height: 160px;
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 200px;
+    height: 160px;
+  }
 `
 
 export default ListItem

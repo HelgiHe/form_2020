@@ -35,12 +35,12 @@ const ProjectsPage = () => {
   return (
     <Layout>
       <SEO title="Verkefni" />
-      <Container>
+      <div>
         <Title>Verkefni</Title>
         <ProjectsContainer>
           {edges.map(project => {
             return (
-              <Link
+              <StyledLink
                 to={`/projects/${slugify(project.node.title)}`}
                 key={project.node.title}
               >
@@ -52,16 +52,20 @@ const ProjectsPage = () => {
                     project.node.type.length
                   )}
                 />
-              </Link>
+              </StyledLink>
             )
           })}
         </ProjectsContainer>
-      </Container>
+      </div>
     </Layout>
   )
 }
 
-const Container = styled.div``
+const StyledLink = styled(Link)`
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
 
 const Title = styled.h1`
   margin-left: 24px;

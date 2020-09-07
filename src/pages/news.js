@@ -32,12 +32,12 @@ const News = () => {
   return (
     <Layout>
       <SEO title="Fréttir" />
-      <Container>
+      <div>
         <Title>Fréttir</Title>
         <NewsContainer>
           {allSanityNews.edges.map(newsItem => {
             return (
-              <Link
+              <StyledLink
                 to={`/news/${slugify(newsItem.node.title)}`}
                 key={newsItem.node.title}
               >
@@ -46,16 +46,19 @@ const News = () => {
                   imagePath={`${newsItem.node.image.asset.url}?w=160`}
                   author={newsItem.node.author}
                 />
-              </Link>
+              </StyledLink>
             )
           })}
         </NewsContainer>
-      </Container>
+      </div>
     </Layout>
   )
 }
-
-const Container = styled.div``
+const StyledLink = styled(Link)`
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
 
 const Title = styled.h1`
   margin-left: 24px;

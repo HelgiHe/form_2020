@@ -48,6 +48,7 @@ const Container = styled.article`
 `
 const Title = styled.h2`
   margin-bottom: 4px;
+  font-family: Gilroy-Medium;
 `
 
 const ExtraImage = styled.img`
@@ -55,6 +56,7 @@ const ExtraImage = styled.img`
   width: 100px;
   object-fit: cover;
   margin-right: 12px;
+  margin-bottom: 12px;
   filter: grayscale(100%);
   &:hover {
     filter: none;
@@ -99,6 +101,7 @@ const TextContainer = styled.span`
   flex-direction: column;
   font-family: Gilroy-Regular;
   font-size: 1.2em;
+  margin-bottom: 24px;
   @media (min-width: 768px) {
     margin-left: 24px;
   }
