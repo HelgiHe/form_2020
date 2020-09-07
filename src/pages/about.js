@@ -99,9 +99,10 @@ const StyledHeading = styled.h1`
 const StyledImage = styled.img`
   width: 100%;
   margin-bottom: 36px;
-  @media (min-width: 768px) {
-    max-width: 450px;
-    margin-right: 25px;
+  @media (min-width: 868px) {
+    width: 550px;
+    height: 500px;
+    margin-right: 24px;
   }
 `
 const StyledParagraph = styled.p`
@@ -114,7 +115,7 @@ const StyledParagraph = styled.p`
 const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
-  @media (min-width: 768px) {
+  @media (min-width: 868px) {
     flex-direction: row;
   }
 `
