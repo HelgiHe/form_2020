@@ -35,7 +35,11 @@ const Header = ({ setModalVisibility, siteTitle }) => {
         <Link to="/projects">Verk</Link>
         <Link to="/about">Stofan</Link>
       </StyledNav>
-      <NavButton onClick={() => setOpen(state => !state)} ref={ref}>
+      <NavButton
+        name="navigation"
+        onClick={() => setOpen(state => !state)}
+        ref={ref}
+      >
         <svg height="30" width="40">
           <FirstLine x1="10" y1="4" x2="40" y2="4" isOpen={isOpen} />
           <SecondLine x1="8" y1="14" x2="35" y2="14" isOpen={isOpen} />

@@ -59,6 +59,7 @@ const Container = styled.div``
 
 const Title = styled.h1`
   margin-left: 24px;
+  font-family: Gilroy-bold;
 `
 
 const NewsContainer = styled.div`

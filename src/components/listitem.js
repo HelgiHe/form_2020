@@ -20,7 +20,8 @@ const Container = styled.div`
 
 const Title = styled.h3`
   margin-top: 4px;
-  margin-bottom 4px
+  margin-bottom 4px;
+  font-family: Gilroy-Medium;
 `
 
 const Author = styled.p`

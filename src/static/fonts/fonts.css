@@ -31,14 +31,6 @@
 }
 
 @font-face {
-  font-family: Gilroy-BoldLight;
-  font-style: normal;
-  src: url("Gilroy-BoldLight.woff2") format("woff2"),
-    url("Gilroy-BoldLight.woff") format("woff");
-  font-display: swap;
-}
-
-@font-face {
   font-family: Gilroy-UltraLight;
   font-style: normal;
   src: url("Gilroy-UltraLight.woff2") format("woff2"),
