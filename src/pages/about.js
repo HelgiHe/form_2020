@@ -1,5 +1,6 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
+import Image from "gatsby-image"
 import SEO from "../components/seo"
 import { Phone, Mail, Home } from "@material-ui/icons"
 import styled from "styled-components"
@@ -15,7 +16,15 @@ export default function About() {
               node {
                 image {
                   asset {
-                    url
+                    fluid(maxWidth: 700) {
+                      aspectRatio
+                      base64
+                      sizes
+                      src
+                      srcSet
+                      srcSetWebp
+                      srcWebp
+                    }
                     title
                   }
                 }
@@ -35,7 +44,7 @@ export default function About() {
               <StyledHeading>Um Stofuna</StyledHeading>
               <StyledSection>
                 <StyledImage
-                  src={allSanityAbout.edges[0].node.image.asset.url}
+                  fluid={allSanityAbout.edges[0].node.image.asset.fluid}
                 />
                 <span>
                   {allSanityAbout.edges[0].node.about.map(
@@ -100,8 +109,9 @@ const StyledHeading = styled.h1`
   letter-spacing: 1px;
 `
 
-const StyledImage = styled.img`
+const StyledImage = styled(Image)`
   width: 100%;
+  min-width: 500px;
   margin-bottom: 36px;
   @media (min-width: 868px) {
     width: 550px;

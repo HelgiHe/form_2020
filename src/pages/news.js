@@ -18,7 +18,15 @@ const News = () => {
             }
             image {
               asset {
-                url
+                fluid(maxWidth: 450) {
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcSetWebp
+                  srcWebp
+                }
               }
             }
             author
@@ -43,7 +51,7 @@ const News = () => {
               >
                 <ListItem
                   title={newsItem.node.title}
-                  imagePath={`${newsItem.node.image.asset.url}?w=160`}
+                  imagePath={newsItem.node.image.asset}
                   author={newsItem.node.author}
                 />
               </StyledLink>

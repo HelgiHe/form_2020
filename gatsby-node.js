@@ -32,7 +32,15 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             image {
               asset {
-                url
+                fluid(maxWidth: 700) {
+                  base64
+                  srcWebp
+                  srcSetWebp
+                  src
+                  srcSet
+                  sizes
+                  aspectRatio
+                }
               }
             }
             author

@@ -6,6 +6,7 @@ const MobileMenu = ({ isOpen }) => {
   return (
     <MobileNavWrapper isOpen={isOpen}>
       <MobileNav>
+        <StyledLink to="/">Forsíða</StyledLink>
         <StyledLink to="/news">Fréttir</StyledLink>
         <StyledLink to="/projects">Verk</StyledLink>
         <StyledLink to="/about">Stofan</StyledLink>

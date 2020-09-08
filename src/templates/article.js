@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Layout from "../components/layout"
 import { ArrowBack } from "@material-ui/icons"
-
+import Image from "gatsby-image"
 import { Link } from "gatsby"
 
 const Article = ({ pageContext }) => {
@@ -13,7 +13,7 @@ const Article = ({ pageContext }) => {
         <Title>{article.node.title}</Title>
         <Author>{article.node.author}</Author>
         <NewsContainer>
-          <StyledImage src={`${article.node.image.asset.url}?w=450`} />
+          <StyledImage fluid={article.node.image.asset.fluid} />
           <TextContainer>
             {article.node.text[0]._rawChildren.map(text => (
               <StyledText key={text._key}>{text.text}</StyledText>
@@ -78,9 +78,10 @@ const StyledText = styled.p`
   margin-top: 12px;
 `
 
-const StyledImage = styled.img`
+const StyledImage = styled(Image)`
   margin: 12px 0px;
   object-fit: contain;
+  min-width: 350px;
   @media (min-width: 768px) {
     margin-right: 24px;
     max-width: 50%;

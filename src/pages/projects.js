@@ -1,7 +1,6 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
-
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ListItem from "../components/listitem"
@@ -19,7 +18,15 @@ const ProjectsPage = () => {
             }
             imagesGallery {
               asset {
-                url
+                fluid(maxWidth: 450) {
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcSetWebp
+                  srcWebp
+                }
               }
             }
             type
@@ -46,7 +53,7 @@ const ProjectsPage = () => {
               >
                 <ListItem
                   title={project.node.title}
-                  imagePath={`${project.node.imagesGallery[0].asset.url}?w=200`}
+                  imagePath={project.node.imagesGallery[0].asset}
                   type={project.node.type.substring(
                     3,
                     project.node.type.length

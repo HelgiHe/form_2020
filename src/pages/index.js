@@ -1,6 +1,8 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Slider from "react-slick"
+import Image from "gatsby-image"
+
 import { slugify } from "../utils"
 import styled from "styled-components"
 import Layout from "../components/layout"
@@ -15,11 +17,10 @@ const IndexPage = ({ data }) => {
   const featured = edges.map(item => {
     return {
       title: item.node.title,
-      image: item.node.imagesGallery[0].asset.url,
+      image: item.node.imagesGallery[0].asset.fluid,
       description: item.node.description[0]._rawChildren[0].text,
     }
   })
-
   const settings = {
     dots: true,
     arrows: true,
@@ -40,7 +41,7 @@ const IndexPage = ({ data }) => {
         {featured.map(item => {
           return (
             <ImageContainer key="item.title">
-              <StyledImage src={item.image} alt={item.title} />
+              <StyledImage fluid={item.image} alt={item.title} />
               <Link to={`/projects/${slugify(item.title)}`}>
                 <ImageText>
                   <h3>{item.title}</h3>
@@ -61,7 +62,7 @@ const ImageContainer = styled.div`
   z-index: 0;
   background-color: var(--lightGrey);
 `
-const StyledImage = styled.img`
+const StyledImage = styled(Image)`
   object-fit: cover;
   width: 100vw;
   height: calc(100vh - 80px);
@@ -90,7 +91,15 @@ export const query = graphql`
           featured
           imagesGallery {
             asset {
-              url
+              fluid(maxWidth: 700) {
+                src
+                srcSet
+                srcSetWebp
+                srcWebp
+                sizes
+                base64
+                aspectRatio
+              }
             }
           }
           description {

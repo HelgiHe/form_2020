@@ -1,11 +1,12 @@
 import React from "react"
 import styled from "styled-components"
+import Image from "gatsby-image"
 
 const ListItem = ({ title, imagePath, author = "", type = "" }) => {
   return (
     <Container>
       <ImageContainer>
-        <StyledImage src={imagePath} alt={title} />
+        <StyledImage fluid={imagePath.fluid} alt={title} />
       </ImageContainer>
       <Title>{title}</Title>
       {author && <Author>{author}</Author>}
@@ -46,7 +47,7 @@ const ImageContainer = styled.div`
   }
 `
 
-const StyledImage = styled.img`
+const StyledImage = styled(Image)`
   object-fit: cover;
   width: 100%;
   @media (min-width: 768px) {
