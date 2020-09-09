@@ -4,9 +4,16 @@ module.exports = {
   siteMetadata: {
     title: `Form Ráðgjöf`,
     description: `Form ráðgjöf er Arkitektarstofa á Akureyri`,
-    author: `Helgi Helgason vefsmiður`,
+    author: `Helgi Helgason`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-114305695-2",
+        head: true,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
