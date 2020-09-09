@@ -31,9 +31,15 @@ const Header = ({ setModalVisibility, siteTitle }) => {
         <Logo src={logo} alt="logo" />
       </Link>
       <StyledNav>
-        <Link to="/news/">Fréttir</Link>
-        <Link to="/projects">Verk</Link>
-        <Link to="/about">Stofan</Link>
+        <Link data-testid="news_nav" to="/news/">
+          Fréttir
+        </Link>
+        <Link data-testid="project_nav" to="/projects">
+          Verk
+        </Link>
+        <Link data-testid="about_nav" to="/about">
+          Stofan
+        </Link>
       </StyledNav>
       <NavButton
         name="navigation"
