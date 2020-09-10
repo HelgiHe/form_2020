@@ -111,11 +111,12 @@ const StyledHeading = styled.h1`
 
 const StyledImage = styled(Image)`
   width: 100%;
-  min-width: 500px;
+
   margin-bottom: 36px;
   @media (min-width: 868px) {
     width: 550px;
     height: 500px;
+    min-width: 500px;
     margin-right: 24px;
   }
 `
