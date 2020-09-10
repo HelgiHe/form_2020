@@ -1,5 +1,5 @@
 /* This file exists as a global css*/
-@import "../static/fonts/fonts.css";
+@import "../../static/fonts/fonts.css";
 
 :root {
   --bone-white: #f9f7f7;

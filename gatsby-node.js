@@ -19,6 +19,16 @@ const slugify = string => {
     .replace(/-+$/, "") // Trim - from end of text
 }
 
+exports.createPages = ({ actions }) => {
+  const { createRedirect } = actions
+  createRedirect({
+    fromPath: "https://www.formradgjof.is/admin",
+    toPath: "https://form.sanity.studio/",
+    isPermanent: true,
+    force: true,
+  })
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const queryNewsResults = await graphql(`

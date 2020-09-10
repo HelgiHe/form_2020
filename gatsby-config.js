@@ -8,6 +8,9 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-netlify`,
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-114305695-2",
@@ -26,7 +29,7 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "fonts",
-        path: `${__dirname}/src/static/fonts`,
+        path: `${__dirname}/static/fonts`,
       },
     },
     {
@@ -37,7 +40,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-netlify`,
+
     {
       resolve: "gatsby-source-sanity",
       options: {
