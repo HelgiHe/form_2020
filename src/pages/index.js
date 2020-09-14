@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import Slider from "react-slick"
+// import Slider from "react-slick"
+import Slider from "../components/slider"
 import Image from "gatsby-image"
 
 import { slugify } from "../utils"
@@ -37,7 +38,8 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Heim" />
-      <Slider {...settings}>
+      <Slider />
+      {/* <Slider {...settings}>
         {featured.map(item => {
           return (
             <ImageContainer key="item.title">
@@ -51,7 +53,7 @@ const IndexPage = ({ data }) => {
             </ImageContainer>
           )
         })}
-      </Slider>
+      </Slider> */}
     </Layout>
   )
 }
