@@ -1,13 +1,16 @@
 import React from "react"
-import { gsap, ScrollTrigger, Draggable } from "gsap/all"
+import { gsap, Draggable, InertiaPlugin } from "gsap/all"
 import "./slider.css"
 
+// TODO: clean this component up
 const Slider = () => {
-  gsap.registerPlugin(Draggable)
+  gsap.registerPlugin(Draggable, InertiaPlugin)
   const slidesref = React.useRef(null)
   const containerRef = React.useRef(null)
+  const textRef = React.useRef(null)
   const [slides, setSlides] = React.useState(null)
   const container = containerRef.current
+
   let dots = document.querySelector(".dots")
   const colorArray = [
     "#683A5E",
@@ -29,17 +32,34 @@ const Slider = () => {
   const handAnim = gsap.timeline({ repeat: -1, repeatDelay: 1 })
   const cursorAnim = gsap.timeline({ repeat: -1, repeatDelay: 1 })
   const arrowAnim = gsap.timeline({ repeat: -1, repeatDelay: 1 })
+  let textAnim = gsap.timeline({})
+  // update dot animation when dragger moves
+  function tweenDot() {
+    // dotanim id causing dsap target undefined
+
+    gsap.set(dotAnim, {
+      time: Math.abs(gsap.getProperty(containerRef.current, "x") / iw) + 1,
+    })
+  }
 
   // main action check which of the 4 types of interaction called the function
   function slideAnim(e) {
     oldSlide = activeSlide
+
     // dragging the panels
     if (this.id === "dragger") {
       activeSlide = offsets.indexOf(this.endX)
     } else {
-      if (gsap.isTweening(container)) {
+      if (gsap.isTweening(containerRef.current)) {
         return
       }
+      console.log(activeSlide)
+      textAnim.progress(0).reversed(true)
+
+      if (activeSlide === 0) {
+        textAnim.reversed(false)
+      }
+
       // arrow clicks
       if (this.id === "leftArrow" || this.id === "rightArrow") {
         activeSlide =
@@ -55,35 +75,40 @@ const Slider = () => {
     // make sure we're not past the end or beginning slide
     activeSlide = activeSlide < 0 ? 0 : activeSlide
     activeSlide =
-      activeSlide > slides && slides.length - 1
-        ? slides && slides.length - 1
+      activeSlide > (slides && slides.length) - 1
+        ? (slides && slides.length) - 1
         : activeSlide
     if (oldSlide === activeSlide) {
       return
     }
     // if we're dragging we don't animate the container
     if (this.id != "dragger") {
-      gsap.to(container, dur, { x: offsets[activeSlide], onUpdate: tweenDot })
+      gsap.to(containerRef.current, dur, {
+        x: offsets[activeSlide],
+        onUpdate: tweenDot,
+      })
     }
-  }
-
-  // update dot animation when dragger moves
-  function tweenDot() {
-    gsap.set(dotAnim, {
-      time: Math.abs(gsap.getProperty(container, "x") / iw) + 1,
-    })
   }
 
   React.useEffect(() => {
     if (slidesref.current) {
-      document.querySelector("#leftArrow").addEventListener("click", slideAnim)
-      document.querySelector("#rightArrow").addEventListener("click", slideAnim)
       setSlides(document.querySelectorAll("section"))
     }
   }, [containerRef, slidesref])
 
-  if (slides) {
+  if (slides && slides.length) {
+    document.querySelector("#leftArrow").addEventListener("click", slideAnim)
+    document.querySelector("#rightArrow").addEventListener("click", slideAnim)
     // set slides background colors and create the nav dots
+    textAnim = gsap
+      .from(textRef.current, {
+        y: 30,
+        autoAlpha: 0,
+        duration: 1,
+        delay: 0.5,
+      })
+      .reverse()
+
     for (let i = 0; i < slides.length; i++) {
       gsap.set(slides[i], { backgroundColor: colorArray[i] })
       let newDot = document.createElement("div")
@@ -231,6 +256,7 @@ const Slider = () => {
           <polyline points="60 25, 30 50, 60 75"></polyline>
         </g>
       </svg>
+
       <svg
         id="rightArrow"
         className="arrow"
@@ -337,6 +363,11 @@ const Slider = () => {
                 <p>Arrows</p>
               </div>
             </div>
+          </section>
+          <section className="slide active" id="slide01">
+            <h1 style={{ color: "white" }} ref={textRef} className="lines">
+              An APPLE per day keeps the code clean!
+            </h1>
           </section>
           <section ref={slidesref}>
             <img
