@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { gsap, Draggable, InertiaPlugin, Expo, SplitText } from "gsap/all"
+import { gsap, Draggable, InertiaPlugin, SplitText } from "gsap/all"
 import Image from "gatsby-image"
 
 import { slugify } from "../utils"
@@ -12,13 +12,10 @@ const Slider = ({ featured }) => {
   gsap.registerPlugin(Draggable, InertiaPlugin)
   const slidesref = React.useRef(null)
   const containerRef = React.useRef(null)
-  const textRef = React.useRef(null)
   const [slides, setSlides] = React.useState(null)
   const container = containerRef.current
-  const [activeSlideIndex, setActiveSlideIndex] = React.useState(0)
 
   let dots = document.querySelector(".dots")
-
   let dur = 0.5
   let offsets = []
   let oldSlide = 0
@@ -27,8 +24,6 @@ const Slider = ({ featured }) => {
   let navDots = []
   let iw = window.innerWidth
 
-  // const arrowAnim = gsap.timeline({ repeat: -1, repeatDelay: 1 })
-  let textAnim = gsap.timeline({})
   // update dot animation when dragger moves
   function tweenDot() {
     gsap.set(dotAnim, {
@@ -42,14 +37,10 @@ const Slider = ({ featured }) => {
     // dragging the panels
     if (this.id === "dragger") {
       activeSlide = offsets.indexOf(this.endX)
+      console.log(activeSlide)
     } else {
       if (gsap.isTweening(containerRef.current)) {
         return
-      }
-      textAnim.progress(0).reversed(true)
-
-      if (activeSlide === 0) {
-        textAnim.reversed(false)
       }
 
       // arrow clicks
@@ -78,6 +69,24 @@ const Slider = ({ featured }) => {
         onUpdate: tweenDot,
       })
     }
+
+    gsap.from(`.imageTextContainer${activeSlide}`, {
+      y: 200,
+      duration: 0.5,
+      delay: 0.2,
+      ease: "expo",
+    })
+    gsap.to(`.imageTextContainer${activeSlide}`, {
+      opacity: 1,
+    })
+    const splitTitle = new SplitText(`#title${activeSlide}`)
+    gsap.from(splitTitle.chars, {
+      duration: 0.4,
+      y: 80,
+      stagger: 0.01,
+      ease: "back",
+      delay: 0.4,
+    })
   }
 
   React.useEffect(() => {
@@ -86,27 +95,20 @@ const Slider = ({ featured }) => {
     }
   }, [containerRef, slidesref])
 
-  React.useEffect(() => {}, [activeSlideIndex])
   if (slides && slides.length) {
     document.querySelector("#leftArrow").addEventListener("click", slideAnim)
     document.querySelector("#rightArrow").addEventListener("click", slideAnim)
     // set slides background colors and create the nav dots
-    textAnim = gsap
-      .from(textRef.current, {
-        y: 30,
-        autoAlpha: 0,
-        duration: 1,
-        delay: 0.5,
-      })
-      .reverse()
-
-    for (let i = 0; i < slides.length; i++) {
-      let newDot = document.createElement("div")
-      newDot.className = "dot"
-      newDot.index = i
-      navDots.push(newDot)
-      newDot.addEventListener("click", slideAnim)
-      dots.appendChild(newDot)
+    let allDots = document.querySelectorAll(".dot")
+    if (allDots.length < slides.length) {
+      for (let i = 0; i < slides.length; i++) {
+        let newDot = document.createElement("div")
+        newDot.className = "dot"
+        newDot.index = i
+        navDots.push(newDot)
+        newDot.addEventListener("click", slideAnim)
+        dots.appendChild(newDot)
+      }
     }
   }
   if (slides) {
@@ -120,7 +122,7 @@ const Slider = ({ featured }) => {
         ".dot",
         {
           stagger: { each: 1, yoyo: true, repeat: 1 },
-          scale: 2.1,
+          scale: 1.5,
           rotation: 0.1,
           ease: "none",
         },
@@ -128,34 +130,6 @@ const Slider = ({ featured }) => {
       )
 
       dotAnim.time(1)
-
-      gsap.from(".imageTextContainer0", {
-        x: 600,
-        duration: 0.5,
-        delay: 0.2,
-        ease: Expo.easeOut,
-      })
-      gsap.to(".imageTextContainer0", {
-        opacity: 1,
-      })
-      const splitTitle = new SplitText("#title0")
-      gsap.from(splitTitle.chars, {
-        duration: 0.4,
-        x: 200,
-        autoAlpha: 0,
-        stagger: 0.02,
-        ease: "expo",
-        delay: 0.4,
-      })
-      const splitDescription = new SplitText("#description0")
-      gsap.from(splitDescription.lines, {
-        duration: 0.4,
-        x: 200,
-        autoAlpha: 0,
-        stagger: 0.01,
-        ease: "expo",
-        delay: 0.5,
-      })
     }
 
     // make the whole thing draggable
@@ -188,14 +162,25 @@ const Slider = ({ featured }) => {
         gsap.set(container, { x: offsets[activeSlide] })
         dragMe[0].vars.snap = offsets
       }
-      gsap.from(".box", {
-        opacity: 0,
-        y: 100,
-        duration: 1,
-      })
-      window.addEventListener("wheel", slideAnim)
       window.addEventListener("resize", sizeIt)
     }
+    gsap.from(`.imageTextContainer0`, {
+      y: 200,
+      duration: 0.5,
+      delay: 0.2,
+      ease: "expo",
+    })
+    gsap.to(`.imageTextContainer0`, {
+      opacity: 1,
+    })
+    const splitTitle = new SplitText(`#title0`)
+    gsap.from(splitTitle.chars, {
+      duration: 0.4,
+      y: 80,
+      stagger: 0.01,
+      ease: "back",
+      delay: 0.4,
+    })
   }
 
   return (
@@ -236,10 +221,7 @@ const Slider = ({ featured }) => {
                 <StyledImage fluid={item.image} alt={item.title} />
                 <Link to={`/projects/${slugify(item.title)}`}>
                   <ImageText className={`imageTextContainer${index}`}>
-                    <h3 id={`title${index}`}>{item.title}</h3>
-                    <p id={`description${index}`} ref={textRef}>
-                      {item.description}
-                    </p>
+                    <StyledTitle id={`title${index}`}>{item.title}</StyledTitle>
                   </ImageText>
                 </Link>
               </ImageContainer>
@@ -264,6 +246,11 @@ const StyledImage = styled(Image)`
   height: calc(100vh - 80px);
 `
 
+const StyledTitle = styled.h2`
+  font-family: Gilroy-Black;
+  font-size: 1.3em;
+`
+
 const ImageText = styled.div`
   opacity: 0;
   position: absolute;
@@ -271,12 +258,13 @@ const ImageText = styled.div`
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
-  height: 116px;
+  height: 64px;
   width: 100vw;
+  display: flex;
+  justify-content: center;
   @media (min-width: 768px) {
-    height: 220px;
-    width: 40%;
-    min-width: 340px;
+    width: 25%;
+    min-width: 240px;
     padding: 24px;
   }
 `

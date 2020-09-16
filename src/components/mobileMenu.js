@@ -1,19 +1,23 @@
 import React from "react"
 import styled from "styled-components"
-import { gsap } from "gsap/all"
+import { gsap, CustomEase } from "gsap/all"
 import { Link } from "gatsby"
 
 const MobileMenu = ({ isOpen }) => {
+  gsap.registerPlugin(CustomEase)
   React.useEffect(() => {
     if (isOpen) {
-      console.log("æsaldfjk")
+      CustomEase.create(
+        "customBack",
+        "M0,0 C0.128,0.572 0.209,0.962 0.464,1.036 0.624,1.082 0.838,1 1,1 "
+      )
       gsap.from(".styledLink", {
         y: 350,
-        delay: 0.18,
+        delay: 0.15,
         opacity: 0,
-        stagger: 0.1,
-        duration: 0.45,
-        ease: "power4",
+        stagger: 0.08,
+        duration: 0.42,
+        ease: "customBack",
       })
     }
   }, [isOpen])
