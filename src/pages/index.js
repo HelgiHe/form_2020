@@ -4,7 +4,6 @@ import { Link, graphql } from "gatsby"
 import Slider from "../components/slider"
 import Image from "gatsby-image"
 
-import { slugify } from "../utils"
 import styled from "styled-components"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -38,7 +37,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Heim" />
-      <Slider />
+      <Slider featured={featured} />
       {/* <Slider {...settings}>
         {featured.map(item => {
           return (

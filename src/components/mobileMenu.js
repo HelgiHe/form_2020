@@ -1,15 +1,38 @@
 import React from "react"
 import styled from "styled-components"
+import { gsap } from "gsap/all"
 import { Link } from "gatsby"
 
 const MobileMenu = ({ isOpen }) => {
+  React.useEffect(() => {
+    if (isOpen) {
+      console.log("æsaldfjk")
+      gsap.from(".styledLink", {
+        y: 350,
+        delay: 0.18,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.45,
+        ease: "power4",
+      })
+    }
+  }, [isOpen])
+
   return (
     <MobileNavWrapper isOpen={isOpen}>
       <MobileNav>
-        <StyledLink to="/">Forsíða</StyledLink>
-        <StyledLink to="/news">Fréttir</StyledLink>
-        <StyledLink to="/projects">Verk</StyledLink>
-        <StyledLink to="/about">Stofan</StyledLink>
+        <StyledLink className="styledLink" to="/">
+          Forsíða
+        </StyledLink>
+        <StyledLink className="styledLink" to="/news">
+          Fréttir
+        </StyledLink>
+        <StyledLink className="styledLink" to="/projects">
+          Verk
+        </StyledLink>
+        <StyledLink className="styledLink" to="/about">
+          Stofan
+        </StyledLink>
       </MobileNav>
     </MobileNavWrapper>
   )
