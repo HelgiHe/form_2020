@@ -59,7 +59,7 @@ const StyledFooter = styled.footer`
   align-items: center;
   font-size: 1.1em;
   justify-content: space-around;
-  z-index: -2;
+  z-index: 2;
   @media (min-width: 768px) {
     height: 80px;
     flex-direction: row;

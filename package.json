@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "form-radgjof",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Arkitektarstofan Form ráðgjöf",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Helgi Helgason <helgihel@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -26,8 +26,6 @@
     "react-dom": "^16.12.0",
     "react-feather": "^2.0.8",
     "react-helmet": "^6.1.0",
-    "react-slick": "^0.27.10",
-    "slick-carousel": "^1.8.1",
     "start-server-and-test": "^1.11.3",
     "styled-components": "^5.1.1",
     "typography": "^0.16.19"
@@ -38,7 +36,7 @@
     "prettier": "2.1.0"
   },
   "keywords": [
-    "gatsby"
+    "Form"
   ],
   "license": "0BSD",
   "scripts": {
