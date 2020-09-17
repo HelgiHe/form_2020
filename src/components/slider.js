@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { gsap, Draggable, InertiaPlugin, SplitText } from "gsap/all"
+import { gsap, Draggable, InertiaPlugin, SplitText, CSSPlugin } from "gsap/all"
 import Image from "gatsby-image"
 
 import { slugify } from "../utils"
@@ -9,20 +9,26 @@ import "./slider.css"
 
 // TODO: clean this component up
 const Slider = ({ featured }) => {
-  gsap.registerPlugin(Draggable, InertiaPlugin)
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(Draggable, InertiaPlugin)
+  }
+
   const slidesref = React.useRef(null)
   const containerRef = React.useRef(null)
   const [slides, setSlides] = React.useState(null)
   const container = containerRef.current
-
-  let dots = document.querySelector(".dots")
+  let dots
+  let iw
+  if (typeof document !== "undefined") {
+    dots = document.querySelector(".dots")
+    iw = window.innerWidth
+  }
   let dur = 0.5
   let offsets = []
   let oldSlide = 0
   let activeSlide = 0
   let dotAnim
   let navDots = []
-  let iw = window.innerWidth
 
   // update dot animation when dragger moves
   function tweenDot() {
