@@ -1,9 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Slider from "../components/slider"
-import Image from "gatsby-image"
-
-import styled from "styled-components"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
