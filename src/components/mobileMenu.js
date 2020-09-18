@@ -4,7 +4,10 @@ import { gsap, CustomEase } from "gsap/all"
 import { Link } from "gatsby"
 
 const MobileMenu = ({ isOpen }) => {
-  gsap.registerPlugin(CustomEase)
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(CustomEase)
+  }
+
   React.useEffect(() => {
     if (isOpen) {
       CustomEase.create(
