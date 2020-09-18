@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 import Layout from "../components/layout"
 import { ArrowBack } from "@material-ui/icons"
-import Image from "gatsby-image"
 import { Link } from "gatsby"
 
 const Project = ({ pageContext }) => {
@@ -30,6 +29,7 @@ const Project = ({ pageContext }) => {
                   src={`${image.asset.url}?w=450`}
                   alt={project.node.title}
                   onMouseEnter={() => setMainImage(`${image.asset.url}`)}
+                  onClick={() => setMainImage(`${image.asset.url}`)}
                 ></ExtraImage>
               )
             })}

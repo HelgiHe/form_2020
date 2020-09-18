@@ -56,7 +56,6 @@ const Slider = ({ featured }) => {
         // click on a dot
       } else if (this.className === "dot") {
         activeSlide = this.index
-        // scrollwheel
       }
     }
     // make sure we're not past the end or beginning slide
