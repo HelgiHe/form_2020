@@ -31,15 +31,15 @@ const Header = ({ setModalVisibility, siteTitle }) => {
         <Logo src={logo} alt="logo" />
       </Link>
       <StyledNav>
-        <Link data-testid="news_nav" to="/news/">
+        <StyledLink data-testid="news_nav" to="/news/">
           Fréttir
-        </Link>
-        <Link data-testid="project_nav" to="/projects">
+        </StyledLink>
+        <StyledLink data-testid="project_nav" to="/projects">
           Verk
-        </Link>
-        <Link data-testid="about_nav" to="/about">
+        </StyledLink>
+        <StyledLink data-testid="about_nav" to="/about">
           Stofan
-        </Link>
+        </StyledLink>
       </StyledNav>
       <NavButton
         name="navigation"
@@ -127,6 +127,47 @@ const StyledNav = styled.nav`
 
 const Logo = styled.img`
   width: 116px;
+`
+
+const StyledLink = styled(Link)`
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  &:before {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s;
+  }
+  &:after {
+    opacity: 0;
+    transform: translateY(4px);
+    transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      opacity 200ms;
+  }
+  &:hover,
+  &:focus {
+    &:before,
+    &:after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &:before {
+      transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 200ms;
+    }
+    &:after {
+      transition: transform 0s 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0s 200ms;
+    }
+  }
 `
 
 export default Header

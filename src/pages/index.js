@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Slider from "../components/slider"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { gsap, Draggable, InertiaPlugin, SplitText, CSSPlugin } from "gsap/all"
 
 const IndexPage = ({ data }) => {
   const {

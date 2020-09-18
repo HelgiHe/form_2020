@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
+import { gsap, TimelineMax } from "gsap/all"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ListItem from "../components/listitem"
@@ -8,6 +9,14 @@ import ListItem from "../components/listitem"
 import { slugify } from "../utils"
 
 const ProjectsPage = () => {
+  React.useEffect(() => {
+    if (typeof document !== undefined) {
+      const tl = gsap.timeline()
+      //increase size of clipPath to reveal text
+      tl.from("h1", { height: 0, duration: 1, ease: "power2" }, "reveal")
+    }
+  }, [])
+
   const data = useStaticQuery(graphql`
     query ProjectsQuery {
       allSanityVerk(sort: { fields: [_createdAt], order: DESC }) {
@@ -43,7 +52,15 @@ const ProjectsPage = () => {
     <Layout>
       <SEO title="Verkefni" />
       <div>
-        <Title>Verkefni</Title>
+        <div
+          className="textEffect"
+          style={{
+            width: "200px",
+            height: "42px",
+          }}
+        >
+          <Title>Verkefni</Title>
+        </div>
         <ProjectsContainer>
           {edges.map(project => {
             return (
@@ -77,6 +94,8 @@ const StyledLink = styled(Link)`
 const Title = styled.h1`
   margin-left: 24px;
   font-family: Gilroy-bold;
+  overflow: hidden;
+  margin-bottom: -4px;
 `
 
 const ProjectsContainer = styled.div`
