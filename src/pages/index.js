@@ -22,19 +22,10 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Heim" />
-      <SliderContainer>
-        <Slider featured={featured} />
-      </SliderContainer>
+      <Slider featured={featured} />
     </Layout>
   )
 }
-
-const SliderContainer = styled.div`
-  height: 84vh;
-  @media (max-width: 769px) {
-    height: 79vh;
-  }
-`
 
 export const query = graphql`
   query Featured {

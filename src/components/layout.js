@@ -55,7 +55,7 @@ const StyledFooter = styled.footer`
   background: var(--bone-white);
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: 168px;
   align-items: center;
   font-size: 1.1em;
   justify-content: space-around;
