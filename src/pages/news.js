@@ -1,12 +1,28 @@
 import React from "react"
 import styled from "styled-components"
 import { Link, useStaticQuery, graphql } from "gatsby"
+import gsap from "gsap"
 import ListItem from "../components/listitem"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { slugify } from "../utils"
 
 const News = () => {
+  React.useEffect(() => {
+    if (typeof document !== undefined) {
+      const tl = gsap.timeline()
+      //increase size of clipPath to reveal text
+      tl.from("h1", { height: 0, duration: 1, ease: "power1" }, "reveal").from(
+        ".content",
+        {
+          opacity: 0,
+          duration: 0.6,
+          ease: "power1",
+          stagger: 0.05,
+        }
+      )
+    }
+  }, [])
   const data = useStaticQuery(graphql`
     query NewsQuery {
       allSanityNews(sort: { fields: [_createdAt], order: DESC }) {
@@ -41,13 +57,16 @@ const News = () => {
     <Layout>
       <SEO title="Fréttir" />
       <div>
-        <Title>Fréttir</Title>
+        <TextEffect className="texteffect">
+          <Title>Fréttir</Title>
+        </TextEffect>
         <NewsContainer>
           {allSanityNews.edges.map(newsItem => {
             return (
               <StyledLink
                 to={`/news/${slugify(newsItem.node.title)}`}
                 key={newsItem.node.title}
+                className="content"
               >
                 <ListItem
                   title={newsItem.node.title}
@@ -71,6 +90,12 @@ const StyledLink = styled(Link)`
 const Title = styled.h1`
   margin-left: 24px;
   font-family: Gilroy-bold;
+  overflow: hidden;
+`
+
+const TextEffect = styled.div`
+width: "200px",
+height: "42px",
 `
 
 const NewsContainer = styled.div`

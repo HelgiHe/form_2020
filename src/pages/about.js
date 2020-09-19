@@ -1,12 +1,27 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
+import gsap from "gsap"
 import SEO from "../components/seo"
 import { Phone, Mail, Home } from "@material-ui/icons"
 import styled from "styled-components"
 import Layout from "../components/layout"
 
 export default function About() {
+  React.useEffect(() => {
+    if (typeof document !== undefined) {
+      const tl = gsap.timeline()
+      //increase size of clipPath to reveal text
+      tl.from("h1", { height: 0, duration: 1, ease: "power1" }, "reveal").from(
+        ".content",
+        {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power1",
+        }
+      )
+    }
+  }, [])
   return (
     <StaticQuery
       query={graphql`
@@ -42,51 +57,53 @@ export default function About() {
             <SEO title="Stofan" />
             <AboutContainer>
               <StyledHeading>Um Stofuna</StyledHeading>
-              <StyledSection>
-                <StyledImage
-                  fluid={allSanityAbout.edges[0].node.image.asset.fluid}
-                />
-                <span>
-                  {allSanityAbout.edges[0].node.about.map(
-                    ({ _rawChildren }) => (
-                      <StyledParagraph key={_rawChildren[0]._key}>
-                        {_rawChildren[0].text}
-                      </StyledParagraph>
-                    )
-                  )}
-                </span>
-              </StyledSection>
-              <ContactContainer>
-                <ContactHeading>Hafa Samband</ContactHeading>
-                <IconContainer>
-                  <Home />
-                  <ContactInfo>
-                    <a
-                      href="https://www.google.com/maps/place/Kaupangur/@65.6792233,-18.1110733,17z/data=!3m1!4b1!4m5!3m4!1s0x48d28f04134104fd:0x8ef7b925e189c8d3!8m2!3d65.6792211!4d-18.1088846"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Kaupangur
-                    </a>
-                  </ContactInfo>
-                </IconContainer>
-                <IconContainer>
-                  <Phone />
-                  <ContactInfo>462 6099</ContactInfo>
-                </IconContainer>
-                <IconContainer>
-                  <Phone />
-                  <ContactInfo>891 7970</ContactInfo>
-                </IconContainer>
-                <IconContainer>
-                  <Mail />
-                  <ContactInfo>
-                    <a href="mailto: formradgjof@formradgjof.is">
-                      formradgjof@formradgjof.is
-                    </a>
-                  </ContactInfo>
-                </IconContainer>
-              </ContactContainer>
+              <div className="content">
+                <StyledSection>
+                  <StyledImage
+                    fluid={allSanityAbout.edges[0].node.image.asset.fluid}
+                  />
+                  <span>
+                    {allSanityAbout.edges[0].node.about.map(
+                      ({ _rawChildren }) => (
+                        <StyledParagraph key={_rawChildren[0]._key}>
+                          {_rawChildren[0].text}
+                        </StyledParagraph>
+                      )
+                    )}
+                  </span>
+                </StyledSection>
+                <ContactContainer>
+                  <ContactHeading>Hafa Samband</ContactHeading>
+                  <IconContainer>
+                    <Home />
+                    <ContactInfo>
+                      <a
+                        href="https://www.google.com/maps/place/Kaupangur/@65.6792233,-18.1110733,17z/data=!3m1!4b1!4m5!3m4!1s0x48d28f04134104fd:0x8ef7b925e189c8d3!8m2!3d65.6792211!4d-18.1088846"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Kaupangur
+                      </a>
+                    </ContactInfo>
+                  </IconContainer>
+                  <IconContainer>
+                    <Phone />
+                    <ContactInfo>462 6099</ContactInfo>
+                  </IconContainer>
+                  <IconContainer>
+                    <Phone />
+                    <ContactInfo>891 7970</ContactInfo>
+                  </IconContainer>
+                  <IconContainer>
+                    <Mail />
+                    <ContactInfo>
+                      <a href="mailto: formradgjof@formradgjof.is">
+                        formradgjof@formradgjof.is
+                      </a>
+                    </ContactInfo>
+                  </IconContainer>
+                </ContactContainer>
+              </div>
             </AboutContainer>
           </Layout>
         )
@@ -107,6 +124,7 @@ const StyledHeading = styled.h1`
   font-family: Gilroy-bold;
   font-size: 1.8em;
   letter-spacing: 1px;
+  overflow: hidden;
 `
 
 const StyledImage = styled(Image)`

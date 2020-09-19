@@ -1,9 +1,9 @@
 import React from "react"
 import { graphql } from "gatsby"
+import styled from "styled-components"
 import Slider from "../components/slider"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { gsap, Draggable, InertiaPlugin, SplitText, CSSPlugin } from "gsap/all"
 
 const IndexPage = ({ data }) => {
   const {
@@ -20,7 +20,9 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Heim" />
-      <Slider featured={featured} />
+      <SliderContainer>
+        <Slider featured={featured} />
+      </SliderContainer>
     </Layout>
   )
 }
@@ -51,6 +53,15 @@ export const query = graphql`
         }
       }
     }
+  }
+`
+const SliderContainer = styled.div`
+  width: 100vw;
+  height: 84vh;
+  height: calc(100% - 80px);
+  @media (max-width: 769px) {
+    z-index: 0;
+    height: 79vh;
   }
 `
 

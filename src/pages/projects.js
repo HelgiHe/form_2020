@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
-import { gsap, TimelineMax } from "gsap/all"
+import gsap from "gsap"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ListItem from "../components/listitem"
@@ -13,7 +13,15 @@ const ProjectsPage = () => {
     if (typeof document !== undefined) {
       const tl = gsap.timeline()
       //increase size of clipPath to reveal text
-      tl.from("h1", { height: 0, duration: 1, ease: "power2" }, "reveal")
+      tl.from("h1", { height: 0, duration: 1, ease: "power1" }, "reveal").from(
+        ".content",
+        {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power1",
+          stagger: 0.05,
+        }
+      )
     }
   }, [])
 
@@ -52,21 +60,14 @@ const ProjectsPage = () => {
     <Layout>
       <SEO title="Verkefni" />
       <div>
-        <div
-          className="textEffect"
-          style={{
-            width: "200px",
-            height: "42px",
-          }}
-        >
-          <Title>Verkefni</Title>
-        </div>
+        <Title>Verkefni</Title>
         <ProjectsContainer>
           {edges.map(project => {
             return (
               <StyledLink
                 to={`/projects/${slugify(project.node.title)}`}
                 key={project.node.title}
+                className="content"
               >
                 <ListItem
                   title={project.node.title}
@@ -95,7 +96,6 @@ const Title = styled.h1`
   margin-left: 24px;
   font-family: Gilroy-bold;
   overflow: hidden;
-  margin-bottom: -4px;
 `
 
 const ProjectsContainer = styled.div`

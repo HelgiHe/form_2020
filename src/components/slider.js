@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { gsap, Draggable, InertiaPlugin, SplitText, CSSPlugin } from "gsap/all"
+import { gsap, Draggable, InertiaPlugin, SplitText } from "gsap/all"
 import Image from "gatsby-image"
 
 import { slugify } from "../utils"
@@ -43,7 +43,6 @@ const Slider = ({ featured }) => {
     // dragging the panels
     if (this.id === "dragger") {
       activeSlide = offsets.indexOf(this.endX)
-      console.log(activeSlide)
     } else {
       if (gsap.isTweening(containerRef.current)) {
         return
@@ -53,7 +52,6 @@ const Slider = ({ featured }) => {
       if (this.id === "leftArrow" || this.id === "rightArrow") {
         activeSlide =
           this.id === "rightArrow" ? (activeSlide += 1) : (activeSlide -= 1)
-        // click on a dot
       } else if (this.className === "dot") {
         activeSlide = this.index
       }
