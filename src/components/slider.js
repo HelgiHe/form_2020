@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { gsap, Draggable, InertiaPlugin, SplitText } from "gsap/all"
+import { gsap, Draggable, InertiaPlugin, SplitText, CustomEase } from "gsap/all"
 import Image from "gatsby-image"
 
 import { slugify } from "../utils"
@@ -10,7 +10,11 @@ import "./slider.css"
 // TODO: clean this component up
 const Slider = ({ featured }) => {
   if (typeof window !== "undefined") {
-    gsap.registerPlugin(Draggable, InertiaPlugin)
+    gsap.registerPlugin(Draggable, InertiaPlugin, CustomEase)
+    CustomEase.create(
+      "letterBack",
+      "M0,0 C0.128,0.572 0.209,0.962 0.464,1.036 0.624,1.082 0.838,1 1,1 "
+    )
   }
 
   const slidesref = React.useRef(null)
@@ -66,28 +70,29 @@ const Slider = ({ featured }) => {
       return
     }
     // if we're dragging we don't animate the container
-    if (this.id != "dragger") {
-      gsap.to(containerRef.current, dur, {
+    if (this.id !== "dragger") {
+      gsap.to(containerRef.current, {
+        duration: dur,
         x: offsets[activeSlide],
         onUpdate: tweenDot,
       })
     }
 
     gsap.from(`.imageTextContainer${activeSlide}`, {
-      y: 200,
+      x: 240,
       duration: 0.5,
       delay: 0.2,
-      ease: "expo",
+      ease: "power2",
     })
     gsap.to(`.imageTextContainer${activeSlide}`, {
       opacity: 1,
     })
     const splitTitle = new SplitText(`#title${activeSlide}`)
     gsap.from(splitTitle.chars, {
-      duration: 0.4,
-      y: 80,
-      stagger: 0.01,
-      ease: "back",
+      duration: 0.6,
+      x: 240,
+      stagger: 0.05,
+      ease: "power2",
       delay: 0.4,
     })
   }
@@ -168,10 +173,10 @@ const Slider = ({ featured }) => {
       window.addEventListener("resize", sizeIt)
     }
     gsap.from(`.imageTextContainer0`, {
-      y: 200,
+      x: 240,
       duration: 0.5,
-      delay: 0.2,
-      ease: "expo",
+      delay: 0.6,
+      ease: "power2",
     })
     gsap.to(`.imageTextContainer0`, {
       opacity: 1,
@@ -179,10 +184,10 @@ const Slider = ({ featured }) => {
     const splitTitle = new SplitText(`#title0`)
     gsap.from(splitTitle.chars, {
       duration: 0.4,
-      y: 80,
-      stagger: 0.01,
-      ease: "back",
-      delay: 0.4,
+      x: 240,
+      stagger: 0.05,
+      ease: "power2",
+      delay: 0.8,
     })
   }
 

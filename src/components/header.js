@@ -1,6 +1,7 @@
 import { Link } from "gatsby"
 import React from "react"
 import styled from "styled-components"
+import gsap from "gsap"
 import logo from "../images/formlogo.svg"
 import MobileNav from "./mobileMenu"
 
@@ -25,20 +26,48 @@ const Header = ({ setModalVisibility, siteTitle }) => {
     setModalVisibility(isOpen)
   }, [isOpen])
 
+  const animateUnderlineIn = event => {
+    const underLine = event.target.querySelector("span")
+    gsap.set(underLine, { xPercent: 0 })
+    gsap.to(underLine, { xPercent: 100, duration: 0.3, ease: "power2.out" })
+  }
+
+  const animateUnderlineOut = event => {
+    const underLine = event.target.querySelector("span")
+    gsap.to(underLine, { xPercent: 200, duration: 0.3, ease: "power2.in" })
+  }
   return (
     <StyledHeader>
       <Link to="/">
         <Logo src={logo} alt="logo" />
       </Link>
       <StyledNav>
-        <StyledLink data-testid="news_nav" to="/news/">
+        <StyledLink
+          data-testid="news_nav"
+          to="/news/"
+          onMouseEnter={e => animateUnderlineIn(e)}
+          onMouseOut={e => animateUnderlineOut(e)}
+        >
           Fréttir
+          <UnderLine className="underline" />
         </StyledLink>
-        <StyledLink data-testid="project_nav" to="/projects">
+        <StyledLink
+          data-testid="project_nav"
+          to="/projects"
+          onMouseEnter={e => animateUnderlineIn(e)}
+          onMouseOut={e => animateUnderlineOut(e)}
+        >
           Verk
+          <UnderLine className="underline" />
         </StyledLink>
-        <StyledLink data-testid="about_nav" to="/about">
+        <StyledLink
+          data-testid="about_nav"
+          to="/about"
+          onMouseEnter={e => animateUnderlineIn(e)}
+          onMouseOut={e => animateUnderlineOut(e)}
+        >
           Stofan
+          <UnderLine className="underline" />
         </StyledLink>
       </StyledNav>
       <NavButton
@@ -131,43 +160,18 @@ const Logo = styled.img`
 
 const StyledLink = styled(Link)`
   position: relative;
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-  &:before {
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s;
-  }
-  &:after {
-    opacity: 0;
-    transform: translateY(4px);
-    transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 200ms;
-  }
-  &:hover,
-  &:focus {
-    &:before,
-    &:after {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    &:before {
-      transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        opacity 200ms;
-    }
-    &:after {
-      transition: transform 0s 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        opacity 0s 200ms;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`
+
+const UnderLine = styled.span`
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  right: 100%;
+  background-color: var(--darkGrey);
 `
 
 export default Header

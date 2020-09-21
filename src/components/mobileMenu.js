@@ -15,12 +15,11 @@ const MobileMenu = ({ isOpen }) => {
         "M0,0 C0.128,0.572 0.209,0.962 0.464,1.036 0.624,1.082 0.838,1 1,1 "
       )
       gsap.from(".styledLink", {
-        y: 350,
         delay: 0.15,
         opacity: 0,
-        stagger: 0.08,
-        duration: 0.42,
-        ease: "customBack",
+        stagger: 0.1,
+        duration: 1,
+        ease: "expo.out",
       })
     }
   }, [isOpen])
