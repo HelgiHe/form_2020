@@ -13,15 +13,16 @@ const ProjectsPage = () => {
     if (typeof document !== undefined) {
       const tl = gsap.timeline()
       //increase size of clipPath to reveal text
-      tl.from("h1", { height: 0, duration: 1, ease: "power1" }, "reveal").from(
-        ".content",
-        {
-          opacity: 0,
-          duration: 0.8,
-          ease: "power1",
-          stagger: 0.05,
-        }
-      )
+      tl.from(
+        "h1",
+        { height: 0, duration: 0.6, ease: "power1" },
+        "reveal"
+      ).from(".content", {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power1",
+        stagger: 0.05,
+      })
     }
   }, [])
 

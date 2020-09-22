@@ -15,6 +15,7 @@ const MobileMenu = ({ isOpen }) => {
         "M0,0 C0.128,0.572 0.209,0.962 0.464,1.036 0.624,1.082 0.838,1 1,1 "
       )
       gsap.from(".styledLink", {
+        y: 40,
         delay: 0.15,
         opacity: 0,
         stagger: 0.1,
