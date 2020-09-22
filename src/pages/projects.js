@@ -103,6 +103,7 @@ const ProjectsContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 `
 
 export default ProjectsPage

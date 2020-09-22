@@ -11,7 +11,6 @@ const News = () => {
   React.useEffect(() => {
     if (typeof document !== undefined) {
       const tl = gsap.timeline()
-      //increase size of clipPath to reveal text
       tl.from(
         "h1",
         { height: 0, duration: 0.6, ease: "power1" },
@@ -103,6 +102,7 @@ const NewsContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 `
 
 export default News
