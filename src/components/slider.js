@@ -56,6 +56,12 @@ const Slider = ({ featured }) => {
       if (this.id === "leftArrow" || this.id === "rightArrow") {
         activeSlide =
           this.id === "rightArrow" ? (activeSlide += 1) : (activeSlide -= 1)
+        if (activeSlide > slides.length - 1) {
+          activeSlide = 0
+        }
+        if (activeSlide < 0) {
+          activeSlide = slides.length - 1
+        }
       } else if (this.className === "dot") {
         activeSlide = this.index
       }

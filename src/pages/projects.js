@@ -21,7 +21,7 @@ const ProjectsPage = () => {
         opacity: 0,
         duration: 0.8,
         ease: "power1",
-        stagger: 0.05,
+        stagger: 0.1,
       })
     }
   }, [])
@@ -100,8 +100,12 @@ const Title = styled.h1`
 `
 
 const ProjectsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
 `
 
 export default ProjectsPage
