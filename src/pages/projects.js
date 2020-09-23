@@ -100,10 +100,8 @@ const Title = styled.h1`
 `
 
 const ProjectsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 `
 
 export default ProjectsPage

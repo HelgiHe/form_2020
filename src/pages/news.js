@@ -99,10 +99,8 @@ height: "42px",
 `
 
 const NewsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 `
 
 export default News
