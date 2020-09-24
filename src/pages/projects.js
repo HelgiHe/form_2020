@@ -16,7 +16,6 @@ const ProjectsPage = ({ location }) => {
     const queryParams = queryString.parse(location.search, {
       arrayFormat: "comma",
     })
-    console.log(queryParams)
     if (queryParams && queryParams.filters) {
       const queryFilters = queryParams.filters
       if (typeof queryFilters === "string") {
