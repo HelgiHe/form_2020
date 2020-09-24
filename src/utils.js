@@ -17,4 +17,17 @@ const slugify = string => {
     .replace(/-+$/, "") // Trim - from end of text
 }
 
-export { slugify }
+const allFilters = {
+  buisness: "01-Atvinnuhúsnæði",
+  apt: "02-Einbýlishús",
+  multi: "03-Fjölbýlishús",
+  school: "04-Skólar",
+  summer: "05-Sumarhús",
+  union: "06-Stéttarfélög",
+  swimmingPool: "07-Sundlaugar",
+  planning: "08-Skipulag",
+  public: "09-Opinber verk",
+  other: "10-Annað",
+}
+
+export { slugify, allFilters }

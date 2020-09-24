@@ -1,14 +1,47 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
+import * as queryString from "query-string"
 import styled from "styled-components"
 import gsap from "gsap"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ListItem from "../components/listitem"
+import Button from "../components/button"
+import { slugify, allFilters } from "../utils"
 
-import { slugify } from "../utils"
+const ProjectsPage = ({ location }) => {
+  console.log({ location })
+  const [selectedFilters, setFilters] = React.useState([])
+  React.useEffect(() => {
+    const queryParams = queryString.parse(location.search, {
+      arrayFormat: "comma",
+    })
+    console.log(queryParams)
+    if (queryParams && queryParams.filters) {
+      const queryFilters = queryParams.filters
+      if (typeof queryFilters === "string") {
+        setFilters([queryFilters])
+      } else {
+        setFilters(queryFilters)
+      }
+    }
+  }, [])
 
-const ProjectsPage = () => {
+  React.useEffect(() => {
+    const queryParams = queryString.stringify(
+      { filters: selectedFilters },
+      {
+        encode: true,
+        arrayFormat: "comma",
+      }
+    )
+    window.history.pushState(
+      {},
+      "",
+      `${location.origin}${location.pathname}?${queryParams}`
+    )
+  }, [selectedFilters])
+
   React.useEffect(() => {
     if (typeof document !== undefined) {
       const tl = gsap.timeline()
@@ -25,6 +58,18 @@ const ProjectsPage = () => {
       })
     }
   }, [])
+  const updateFilters = (event, appliedFilter) => {
+    event.preventDefault()
+    if (selectedFilters.includes(appliedFilter)) {
+      const newFilters = selectedFilters.filter(
+        filter => filter !== appliedFilter
+      )
+      setFilters(newFilters)
+    } else {
+      const newFilters = [...selectedFilters, appliedFilter]
+      setFilters(newFilters)
+    }
+  }
 
   const data = useStaticQuery(graphql`
     query ProjectsQuery {
@@ -57,11 +102,27 @@ const ProjectsPage = () => {
   const {
     allSanityVerk: { edges },
   } = data
+  const filteredData = edges.filter(project =>
+    selectedFilters.includes(project.node.type)
+  )
+
+  const availableFilters = Array.from(
+    new Set(edges.map(project => project.node.type))
+  )
   return (
     <Layout>
       <SEO title="Verkefni" />
       <div>
         <Title>Verkefni</Title>
+        {availableFilters.map(type => {
+          return (
+            <div key={type}>
+              <Button onClick={e => updateFilters(e, type)}>
+                {type.substring(3, type.length)}
+              </Button>
+            </div>
+          )
+        })}
         <ProjectsContainer>
           {edges.map(project => {
             return (
