@@ -19,7 +19,7 @@ const News = () => {
         opacity: 0,
         duration: 0.6,
         ease: "power1",
-        stagger: 0.05,
+        stagger: 0.1,
       })
     }
   }, [])
@@ -99,8 +99,12 @@ height: "42px",
 `
 
 const NewsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
 `
 
 export default News

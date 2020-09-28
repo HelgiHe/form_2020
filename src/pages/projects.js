@@ -1,14 +1,45 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
+import * as queryString from "query-string"
 import styled from "styled-components"
 import gsap from "gsap"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ListItem from "../components/listitem"
-
+import Button from "../components/button"
 import { slugify } from "../utils"
 
-const ProjectsPage = () => {
+const ProjectsPage = ({ location }) => {
+  const [selectedFilters, setFilters] = React.useState([])
+  React.useEffect(() => {
+    const queryParams = queryString.parse(location.search, {
+      arrayFormat: "comma",
+    })
+    if (queryParams && queryParams.filters) {
+      const queryFilters = queryParams.filters
+      if (typeof queryFilters === "string") {
+        setFilters([queryFilters])
+      } else {
+        setFilters(queryFilters)
+      }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    const queryParams = queryString.stringify(
+      { filters: selectedFilters },
+      {
+        encode: true,
+        arrayFormat: "comma",
+      }
+    )
+    window.history.pushState(
+      {},
+      "",
+      `${location.origin}${location.pathname}?${queryParams}`
+    )
+  }, [selectedFilters])
+
   React.useEffect(() => {
     if (typeof document !== undefined) {
       const tl = gsap.timeline()
@@ -21,10 +52,22 @@ const ProjectsPage = () => {
         opacity: 0,
         duration: 0.8,
         ease: "power1",
-        stagger: 0.05,
+        stagger: 0.1,
       })
     }
   }, [])
+  const updateFilters = (event, appliedFilter) => {
+    event.preventDefault()
+    if (selectedFilters.includes(appliedFilter)) {
+      const newFilters = selectedFilters.filter(
+        filter => filter !== appliedFilter
+      )
+      setFilters(newFilters)
+    } else {
+      const newFilters = [...selectedFilters, appliedFilter]
+      setFilters(newFilters)
+    }
+  }
 
   const data = useStaticQuery(graphql`
     query ProjectsQuery {
@@ -57,13 +100,39 @@ const ProjectsPage = () => {
   const {
     allSanityVerk: { edges },
   } = data
+
+  const filteredData = edges.filter(project =>
+    selectedFilters.includes(project.node.type)
+  )
+
+  const displayedProjects = filteredData?.length ? filteredData : edges
+  // exclude filters which don't have any entry
+  const availableFilters = Array.from(
+    new Set(edges.map(project => project.node.type))
+  )
   return (
     <Layout>
       <SEO title="Verkefni" />
       <div>
         <Title>Verkefni</Title>
+        <ButtonsContainer>
+          {availableFilters.map(type => {
+            return (
+              <Button
+                key={type}
+                onClick={e => updateFilters(e, type)}
+                isSelected={selectedFilters.includes(type)}
+              >
+                {type.substring(3, type.length)}
+              </Button>
+            )
+          })}
+          <Button onClick={e => setFilters([])} isSelected={false}>
+            Fjarlægja síur
+          </Button>
+        </ButtonsContainer>
         <ProjectsContainer>
-          {edges.map(project => {
+          {displayedProjects.map(project => {
             return (
               <StyledLink
                 to={`/projects/${slugify(project.node.title)}`}
@@ -99,9 +168,20 @@ const Title = styled.h1`
   overflow: hidden;
 `
 
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`
+
 const ProjectsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
 `
 
 export default ProjectsPage
