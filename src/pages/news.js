@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import gsap from "gsap"
 import ListItem from "../components/listitem"
 import Layout from "../components/layout"
@@ -67,6 +68,9 @@ const News = () => {
                 to={`/news/${slugify(newsItem.node.title)}`}
                 key={newsItem.node.title}
                 className="content"
+                cover
+                bg="#c9d6df"
+                direction="right"
               >
                 <ListItem
                   title={newsItem.node.title}
@@ -81,7 +85,7 @@ const News = () => {
     </Layout>
   )
 }
-const StyledLink = styled(Link)`
+const StyledLink = styled(AniLink)`
   @media (max-width: 768px) {
     width: 100%;
   }

@@ -1,4 +1,5 @@
-import { Link } from "gatsby"
+import Link from "gatsby-plugin-transition-link"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import React from "react"
 import styled from "styled-components"
 import gsap from "gsap"
@@ -20,7 +21,7 @@ const Header = ({ setModalVisibility, siteTitle }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  })
+  }, [])
 
   React.useEffect(() => {
     setModalVisibility(isOpen)
@@ -43,8 +44,11 @@ const Header = ({ setModalVisibility, siteTitle }) => {
       </Link>
       <StyledNav>
         <StyledLink
-          data-testid="news_nav"
+          cover
+          bg="#c9d6df"
+          direction="right"
           to="/news/"
+          data-testid="news_nav"
           onMouseEnter={e => animateUnderlineIn(e)}
           onMouseOut={e => animateUnderlineOut(e)}
         >
@@ -52,6 +56,9 @@ const Header = ({ setModalVisibility, siteTitle }) => {
           <UnderLine className="underline" />
         </StyledLink>
         <StyledLink
+          cover
+          bg="#c9d6df"
+          direction="right"
           data-testid="project_nav"
           to="/projects"
           onMouseEnter={e => animateUnderlineIn(e)}
@@ -61,6 +68,9 @@ const Header = ({ setModalVisibility, siteTitle }) => {
           <UnderLine className="underline" />
         </StyledLink>
         <StyledLink
+          cover
+          bg="#c9d6df"
+          direction="right"
           data-testid="about_nav"
           to="/about"
           onMouseEnter={e => animateUnderlineIn(e)}
@@ -158,7 +168,7 @@ const Logo = styled.img`
   width: 116px;
 `
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(AniLink)`
   position: relative;
   display: flex;
   flex-direction: column;

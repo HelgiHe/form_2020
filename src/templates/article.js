@@ -2,17 +2,41 @@ import React from "react"
 import styled from "styled-components"
 import Layout from "../components/layout"
 import { ArrowBack } from "@material-ui/icons"
+import gsap from "gsap"
 import Image from "gatsby-image"
-import { Link } from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const Article = ({ pageContext }) => {
+  React.useEffect(() => {
+    if (typeof document !== undefined) {
+      const tl = gsap.timeline()
+      tl.from(".text", {
+        height: 0,
+        delay: 0.3,
+        duration: 0.6,
+        ease: "power1",
+        stagger: 0.5,
+      })
+        .from(".content", {
+          opacity: 0,
+          duration: 0.6,
+          ease: "power1",
+          stagger: 0.1,
+        })
+        .from(".backBtn", {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power1",
+        })
+    }
+  }, [])
   const { article } = pageContext
   return (
     <Layout>
       <Container>
-        <Title>{article.node.title}</Title>
-        <Author>{article.node.author}</Author>
-        <NewsContainer>
+        <Title className="text">{article.node.title}</Title>
+        <Author className="text">{article.node.author}</Author>
+        <NewsContainer className="content">
           <StyledImage fluid={article.node.image.asset.fluid} />
           <TextContainer>
             {article.node.text[0]._rawChildren.map(text => (
@@ -20,7 +44,13 @@ const Article = ({ pageContext }) => {
             ))}
           </TextContainer>
         </NewsContainer>
-        <StyledLink to="/news">
+        <StyledLink
+          to="/news"
+          cover
+          bg="#c9d6df"
+          direction="left"
+          className="backBtn"
+        >
           <ArrowBack /> <span>Til Baka</span>
         </StyledLink>
       </Container>
@@ -34,9 +64,10 @@ const Container = styled.article`
 const Title = styled.h2`
   margin-bottom: 4px;
   font-family: Gilroy-Medium;
+  overflow: hidden;
 `
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(AniLink)`
   margin-top: 12px;
   display: flex;
   align-items: center;
@@ -53,6 +84,7 @@ const Author = styled.p`
   color: var(--darkGrey);
   font-family: Gilroy-LightItalic;
   margin-bottom: 12px;
+  overflow: hidden;
 `
 
 const NewsContainer = styled.div`

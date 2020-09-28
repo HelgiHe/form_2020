@@ -1,10 +1,33 @@
 import React from "react"
 import styled from "styled-components"
 import Layout from "../components/layout"
+import gsap from "gsap"
 import { ArrowBack } from "@material-ui/icons"
-import { Link } from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const Project = ({ pageContext }) => {
+  React.useEffect(() => {
+    if (typeof document !== undefined) {
+      const tl = gsap.timeline()
+      tl.from("h2", {
+        height: 0,
+        delay: 0.3,
+        duration: 0.6,
+        ease: "power1",
+      })
+        .from(".content", {
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power1",
+        })
+        .from(".backBtn", {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power1",
+        })
+    }
+  }, [])
   const { project } = pageContext
   const [mainImage, setMainImage] = React.useState(
     project.node.imagesGallery[0].asset.url
@@ -13,7 +36,7 @@ const Project = ({ pageContext }) => {
     <Layout>
       <Container>
         <Title>{project.node.title}</Title>
-        <ProjectContainer>
+        <ProjectContainer className="content">
           <StyledImage src={`${mainImage}?w=450`} />
           <TextContainer>
             {project.node.description[0]._rawChildren.map(text => (
@@ -21,7 +44,7 @@ const Project = ({ pageContext }) => {
             ))}
           </TextContainer>
         </ProjectContainer>
-        <ImagesContainer>
+        <ImagesContainer className="content">
           <ExtraImageContainer>
             {project.node.imagesGallery.map(image => {
               return (
@@ -35,7 +58,13 @@ const Project = ({ pageContext }) => {
             })}
           </ExtraImageContainer>
         </ImagesContainer>
-        <StyledLink to="/projects">
+        <StyledLink
+          to="/projects"
+          cover
+          bg="#c9d6df"
+          direction="left"
+          className="backBtn"
+        >
           <ArrowBack /> <span>Til Baka</span>
         </StyledLink>
       </Container>
@@ -49,6 +78,7 @@ const Container = styled.article`
 const Title = styled.h2`
   margin-bottom: 4px;
   font-family: Gilroy-Medium;
+  overflow: hidden;
 `
 
 const ExtraImage = styled.img`
@@ -75,7 +105,7 @@ const ImagesContainer = styled.span`
   flex-direction: column;
 `
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(AniLink)`
   margin-top: 12px;
   display: flex;
   align-items: center;

@@ -1,14 +1,13 @@
 import React from "react"
-import { Link } from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import styled from "styled-components"
 import { gsap, Draggable, InertiaPlugin, SplitText, CustomEase } from "gsap/all"
 import Image from "gatsby-image"
-
 import { slugify } from "../utils"
 import "./slider.css"
 
 // TODO: clean this component up
-const Slider = ({ featured }) => {
+const Slider = ({ featured, playAnim }) => {
   if (typeof window !== "undefined") {
     gsap.registerPlugin(Draggable, InertiaPlugin, CustomEase)
     CustomEase.create(
@@ -83,29 +82,30 @@ const Slider = ({ featured }) => {
         onUpdate: tweenDot,
       })
     }
-
-    gsap.from(`.imageTextContainer${activeSlide}`, {
-      x: 240,
-      duration: 0.5,
-      delay: 0.4,
-      ease: "power2",
-    })
-    gsap.to(`.imageTextContainer${activeSlide}`, {
-      opacity: 1,
-    })
-    const splitTitle = new SplitText(`#title${activeSlide}`)
-    gsap.from(splitTitle.chars, {
-      duration: 0.8,
-      x: 240,
-      stagger: 0.03,
-      ease: "power2",
-      delay: 0.6,
-    })
+    if (playAnim) {
+      gsap.from(`.imageTextContainer${activeSlide}`, {
+        x: 240,
+        duration: 0.5,
+        delay: 0.4,
+        ease: "power2",
+      })
+      gsap.to(`.imageTextContainer${activeSlide}`, {
+        opacity: 1,
+      })
+      const splitTitle = new SplitText(`#title${activeSlide}`)
+      gsap.from(splitTitle.chars, {
+        duration: 0.8,
+        x: 240,
+        stagger: 0.03,
+        ease: "power2",
+        delay: 0.6,
+      })
+    }
   }
 
   React.useEffect(() => {
     if (slidesref.current) {
-      setSlides(document.querySelectorAll("section"))
+      setSlides(document.querySelectorAll(".section"))
     }
   }, [containerRef, slidesref])
 
@@ -178,23 +178,25 @@ const Slider = ({ featured }) => {
       }
       window.addEventListener("resize", sizeIt)
     }
-    gsap.from(`.imageTextContainer0`, {
-      x: 240,
-      duration: 0.5,
-      delay: 0.6,
-      ease: "power2",
-    })
-    gsap.to(`.imageTextContainer0`, {
-      opacity: 1,
-    })
-    const splitTitle = new SplitText(`#title0`)
-    gsap.from(splitTitle.chars, {
-      duration: 0.8,
-      x: 240,
-      stagger: 0.03,
-      ease: "expo",
-      delay: 0.8,
-    })
+    if (playAnim) {
+      gsap.from(`.imageTextContainer0`, {
+        x: 240,
+        duration: 0.5,
+        delay: 0.6,
+        ease: "power2",
+      })
+      gsap.to(`.imageTextContainer0`, {
+        opacity: 1,
+      })
+      const splitTitle = new SplitText(`#title0`)
+      gsap.from(splitTitle.chars, {
+        duration: 0.8,
+        x: 240,
+        stagger: 0.03,
+        ease: "expo",
+        delay: 0.8,
+      })
+    }
   }
 
   return (
@@ -233,11 +235,16 @@ const Slider = ({ featured }) => {
                 className="section"
               >
                 <StyledImage fluid={item.image} alt={item.title} />
-                <Link to={`/projects/${slugify(item.title)}`}>
+                <AniLink
+                  to={`/projects/${slugify(item.title)}`}
+                  cover
+                  bg="#c9d6df"
+                  direction="right"
+                >
                   <ImageText className={`imageTextContainer${index}`}>
                     <StyledTitle id={`title${index}`}>{item.title}</StyledTitle>
                   </ImageText>
-                </Link>
+                </AniLink>
               </ImageContainer>
             )
           })}

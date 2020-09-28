@@ -5,7 +5,7 @@ import Slider from "../components/slider"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, transitionStatus }) => {
   const {
     allSanityVerk: { edges },
   } = data
@@ -21,7 +21,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Heim" />
       <SliderContainer>
-        <Slider featured={featured} />
+        <Slider featured={featured} playAnim={transitionStatus === "entered"} />
       </SliderContainer>
     </Layout>
   )

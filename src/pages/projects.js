@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import * as queryString from "query-string"
 import styled from "styled-components"
 import gsap from "gsap"
@@ -44,16 +45,18 @@ const ProjectsPage = ({ location }) => {
     if (typeof document !== undefined) {
       const tl = gsap.timeline()
       //increase size of clipPath to reveal text
-      tl.from(
-        "h1",
-        { height: 0, duration: 0.6, ease: "power1" },
-        "reveal"
-      ).from(".content", {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power1",
-        stagger: 0.1,
-      })
+      tl.from("h1", { height: 0, duration: 0.6, ease: "power1" }, "reveal")
+        .from(".buttonsContainer", {
+          opacity: 0,
+          duration: 0.6,
+          ease: "power1",
+        })
+        .from(".content", {
+          opacity: 0,
+          duration: 1.2,
+          ease: "expo",
+          stagger: 0.1,
+        })
     }
   }, [])
   const updateFilters = (event, appliedFilter) => {
@@ -115,7 +118,7 @@ const ProjectsPage = ({ location }) => {
       <SEO title="Verkefni" />
       <div>
         <Title>Verkefni</Title>
-        <ButtonsContainer>
+        <ButtonsContainer className="buttonsContainer">
           {availableFilters.map(type => {
             return (
               <Button
@@ -138,6 +141,9 @@ const ProjectsPage = ({ location }) => {
                 to={`/projects/${slugify(project.node.title)}`}
                 key={project.node.title}
                 className="content"
+                cover
+                bg="#c9d6df"
+                direction="right"
               >
                 <ListItem
                   title={project.node.title}
@@ -156,7 +162,7 @@ const ProjectsPage = ({ location }) => {
   )
 }
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(AniLink)`
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -169,9 +175,12 @@ const Title = styled.h1`
 `
 
 const ButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: none;
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `
 
 const ProjectsContainer = styled.div`
