@@ -7,10 +7,9 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ListItem from "../components/listitem"
 import Button from "../components/button"
-import { slugify, allFilters } from "../utils"
+import { slugify } from "../utils"
 
 const ProjectsPage = ({ location }) => {
-  console.log({ location })
   const [selectedFilters, setFilters] = React.useState([])
   React.useEffect(() => {
     const queryParams = queryString.parse(location.search, {
@@ -101,10 +100,13 @@ const ProjectsPage = ({ location }) => {
   const {
     allSanityVerk: { edges },
   } = data
+
   const filteredData = edges.filter(project =>
     selectedFilters.includes(project.node.type)
   )
 
+  const displayedProjects = filteredData?.length ? filteredData : edges
+  // exclude filters which don't have any entry
   const availableFilters = Array.from(
     new Set(edges.map(project => project.node.type))
   )
@@ -113,17 +115,24 @@ const ProjectsPage = ({ location }) => {
       <SEO title="Verkefni" />
       <div>
         <Title>Verkefni</Title>
-        {availableFilters.map(type => {
-          return (
-            <div key={type}>
-              <Button onClick={e => updateFilters(e, type)}>
+        <ButtonsContainer>
+          {availableFilters.map(type => {
+            return (
+              <Button
+                key={type}
+                onClick={e => updateFilters(e, type)}
+                isSelected={selectedFilters.includes(type)}
+              >
                 {type.substring(3, type.length)}
               </Button>
-            </div>
-          )
-        })}
+            )
+          })}
+          <Button onClick={e => setFilters([])} isSelected={false}>
+            Fjarlægja síur
+          </Button>
+        </ButtonsContainer>
         <ProjectsContainer>
-          {edges.map(project => {
+          {displayedProjects.map(project => {
             return (
               <StyledLink
                 to={`/projects/${slugify(project.node.title)}`}
@@ -159,10 +168,17 @@ const Title = styled.h1`
   overflow: hidden;
 `
 
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`
+
 const ProjectsContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media (min-width: 768px) {
+    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }

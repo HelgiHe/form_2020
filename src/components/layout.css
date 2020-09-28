@@ -2,14 +2,15 @@
 @import "../../static/fonts/fonts.css";
 
 :root {
-  --bone-white: #f9f7f7;
+  --bone-white: #f1f2f6;
   --blackish: #1e2022;
   --lightGrey: #f0f5f9;
   --darkGrey: #52616b;
   --midGrey: #c9d6df;
   --lightblue: #dbe2ef;
   --midblue: #3f72af;
-  --darkblue: #112d4e;
+  --darkblue: #222e50;
+  --purplish: hsl(288.6, 10%, 90%);
 }
 
 body {
