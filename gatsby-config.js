@@ -1,4 +1,5 @@
 require("dotenv").config()
+const isProd = process.env.NODE_ENV === "production"
 
 module.exports = {
   siteMetadata: {
@@ -47,13 +48,11 @@ module.exports = {
     {
       resolve: "gatsby-source-sanity",
       options: {
-        projectId: "rt44xqra",
+        projectId: process.env.SANITY_PROJECT_ID,
         dataset: "production",
-        // To enable preview of drafts, copy .env-example into .env,
-        // and add a token with read permissions
         token: process.env.SANITY_TOKEN,
-        watchMode: true,
-        overlayDrafts: true,
+        watchMode: !isProd,
+        overlayDrafts: !isProd,
       },
     },
     {
