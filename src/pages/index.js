@@ -36,7 +36,7 @@ export const query = graphql`
           featured
           imagesGallery {
             asset {
-              fluid(maxWidth: 700) {
+              fluid(maxWidth: 2000) {
                 src
                 srcSet
                 srcSetWebp
