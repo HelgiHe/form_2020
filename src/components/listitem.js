@@ -1,10 +1,11 @@
 import React from "react"
 import styled from "styled-components"
 import Image from "gatsby-image"
+import { gsap, ScrollTrigger } from "gsap/all"
 
 const ListItem = ({ title, imagePath, author = "", type = "" }) => {
   return (
-    <Container>
+    <Container className="listItem-container">
       <ImageContainer>
         <StyledImage fluid={imagePath.fluid} alt={title} />
       </ImageContainer>
@@ -42,8 +43,8 @@ const ImageContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   width: 100%;
   @media (min-width: 768px) {
-    width: 200px;
-    height: 160px;
+    width: 400px;
+    height: 320px;
   }
 `
 
@@ -51,8 +52,8 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   width: 100%;
   @media (min-width: 768px) {
-    width: 200px;
-    height: 160px;
+    width: 400px;
+    height: 320px;
   }
 `
 

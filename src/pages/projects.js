@@ -3,7 +3,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import * as queryString from "query-string"
 import styled from "styled-components"
-import gsap from "gsap"
+import { gsap, ScrollTrigger } from "gsap/all"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ListItem from "../components/listitem"
@@ -43,6 +43,23 @@ const ProjectsPage = ({ location }) => {
 
   React.useEffect(() => {
     if (typeof document !== undefined) {
+      gsap.registerPlugin(ScrollTrigger)
+
+      const boxes = gsap.utils.toArray(".listItem-container")
+      boxes.forEach((listItem, i) => {
+        console.log(i)
+        const itemTl = gsap.timeline()
+        itemTl.from(listItem, { opacity: 0 })
+        ScrollTrigger.create({
+          animation: itemTl,
+          trigger: listItem,
+          toggleClass: "active",
+          // this toggles the class again when you scroll back up:
+          toggleActions: "play none none none",
+          // this removes the class when the scrolltrigger is passed:
+          // once: true,
+        })
+      })
       const tl = gsap.timeline()
       //increase size of clipPath to reveal text
       tl.from("h1", { height: 0, duration: 0.6, ease: "power1" }, "reveal")
@@ -54,8 +71,7 @@ const ProjectsPage = ({ location }) => {
         .from(".content", {
           opacity: 0,
           duration: 1.2,
-          ease: "expo",
-          stagger: 0.1,
+          ease: "power1",
         })
     }
   }, [])
@@ -189,7 +205,7 @@ const ProjectsContainer = styled.div`
   @media (min-width: 768px) {
     display: -ms-grid;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   }
 `
 

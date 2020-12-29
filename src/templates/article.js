@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import Layout from "../components/layout"
-import { ArrowBack } from "@material-ui/icons"
 import gsap from "gsap"
 import Image from "gatsby-image"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
@@ -50,9 +49,7 @@ const Article = ({ pageContext }) => {
           bg="#c9d6df"
           direction="left"
           className="backBtn"
-        >
-          <ArrowBack /> <span>Til Baka</span>
-        </StyledLink>
+        ></StyledLink>
       </Container>
     </Layout>
   )
