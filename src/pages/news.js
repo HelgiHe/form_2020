@@ -107,7 +107,7 @@ const NewsContainer = styled.div`
   flex-direction: column;
   @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   }
 `
 
