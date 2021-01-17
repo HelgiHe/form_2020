@@ -157,7 +157,7 @@ const Slider = ({ featured, playAnim }) => {
         onDrag: tweenDot,
         onThrowUpdate: tweenDot,
         onDragEnd: slideAnim,
-        allowNativeTouchScrolling: false,
+        allowNativeTouchScrolling: true,
         zIndexBoost: false,
       })
 
