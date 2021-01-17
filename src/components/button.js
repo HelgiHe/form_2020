@@ -10,19 +10,17 @@ const Button = ({ onClick, isSelected, children }) => {
 }
 
 const StyledButton = styled.button`
-  height: 40px;
   padding: 8px;
-  min-width: 108px;
-  margin: 12px 24px 24px 24px;
+  min-width: 80px;
+  margin: 4px 12px 12px 12px;
   font-size: 0.9em;
   transition: all 200ms ease-out;
-  border: #000 2px solid;
+  border: none;
   background-color: ${({ isSelected }) =>
-    isSelected ? "var(--darkblue)" : "var(--bone-white)"};
+    isSelected ? "var(--bone-white)" : "var(--white)"};
   color: ${({ isSelected }) => (isSelected ? "var(--bone-white)" : "#000")};
   &:hover {
-    border: var(--darkblue) 2px solid;
-    background-color: var(--darkblue);
+    background-color: var(--bone-white);
     color: var(--bone-white);
   }
 `

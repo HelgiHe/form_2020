@@ -2,6 +2,7 @@
 @import "../../static/fonts/fonts.css";
 
 :root {
+  --white: #f1f2f6;
   --bone-white: #f1f2f6;
   --blackish: #1e2022;
   --lightGrey: #f0f5f9;

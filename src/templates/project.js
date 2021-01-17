@@ -17,7 +17,6 @@ const Project = ({ pageContext }) => {
         .from(".content", {
           opacity: 0,
           duration: 0.6,
-          stagger: 0.1,
           ease: "power1",
         })
         .from(".backBtn", {

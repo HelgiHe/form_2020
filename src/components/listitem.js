@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import Image from "gatsby-image"
-import { gsap, ScrollTrigger } from "gsap/all"
 
 const ListItem = ({ title, imagePath, author = "", type = "" }) => {
   return (

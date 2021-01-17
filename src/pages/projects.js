@@ -46,33 +46,51 @@ const ProjectsPage = ({ location }) => {
       gsap.registerPlugin(ScrollTrigger)
 
       const boxes = gsap.utils.toArray(".listItem-container")
-      boxes.forEach((listItem, i) => {
-        console.log(i)
-        const itemTl = gsap.timeline()
-        itemTl.from(listItem, { opacity: 0 })
-        ScrollTrigger.create({
-          animation: itemTl,
-          trigger: listItem,
-          toggleClass: "active",
-          // this toggles the class again when you scroll back up:
-          toggleActions: "play none none none",
-          // this removes the class when the scrolltrigger is passed:
-          // once: true,
-        })
+      gsap.set(".listItem-container", { y: 100, opacity: 0 })
+      ScrollTrigger.batch(boxes, {
+        interval: 0.1,
+        batchMax: 3,
+        onEnter: batch =>
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: { each: 0.15, grid: [1, 3] },
+            overwrite: true,
+          }),
+        onLeave: batch =>
+          gsap.set(batch, { opacity: 0, y: -100, overwrite: true }),
+        onEnterBack: batch =>
+          gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, overwrite: true }),
+        onLeaveBack: batch =>
+          gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
       })
+      ScrollTrigger.addEventListener("refreshInit", () =>
+        gsap.set(".listItem-container", { y: 0, opacity: 1 })
+      )
+      // boxes.forEach((listItem, i) => {
+      //   console.log(i)
+      //   const itemTl = gsap.timeline()
+      //   itemTl.from(listItem, { opacity: 0, y: 30 })
+      //   ScrollTrigger.create({
+      //     animation: itemTl,
+      //     trigger: listItem,
+      //     toggleClass: "active",
+      //     toggleActions: "play none none none",
+      //     // this removes the class when the scrolltrigger is passed:
+      //     // once: true,
+      //   })
+      // })
       const tl = gsap.timeline()
       //increase size of clipPath to reveal text
-      tl.from("h1", { height: 0, duration: 0.6, ease: "power1" }, "reveal")
-        .from(".buttonsContainer", {
-          opacity: 0,
-          duration: 0.6,
-          ease: "power1",
-        })
-        .from(".content", {
-          opacity: 0,
-          duration: 1.2,
-          ease: "power1",
-        })
+      tl.from(
+        "h1",
+        { height: 0, duration: 0.6, ease: "power1" },
+        "reveal"
+      ).from(".buttonsContainer", {
+        opacity: 0,
+        duration: 0.6,
+        ease: "power1",
+      })
     }
   }, [])
   const updateFilters = (event, appliedFilter) => {
