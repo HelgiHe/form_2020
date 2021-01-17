@@ -84,7 +84,7 @@ const Slider = ({ featured, playAnim }) => {
     }
     if (playAnim) {
       gsap.from(`.imageTextContainer${activeSlide}`, {
-        x: 240,
+        x: 340,
         duration: 0.5,
         delay: 0.4,
         ease: "power2",
@@ -95,7 +95,7 @@ const Slider = ({ featured, playAnim }) => {
       const splitTitle = new SplitText(`#title${activeSlide}`)
       gsap.from(splitTitle.chars, {
         duration: 0.8,
-        x: 240,
+        x: 340,
         stagger: 0.03,
         ease: "power2",
         delay: 0.6,
@@ -180,7 +180,7 @@ const Slider = ({ featured, playAnim }) => {
     }
     if (playAnim) {
       gsap.from(`.imageTextContainer0`, {
-        x: 240,
+        x: 540,
         duration: 0.5,
         delay: 0.6,
         ease: "power2",
@@ -191,7 +191,7 @@ const Slider = ({ featured, playAnim }) => {
       const splitTitle = new SplitText(`#title0`)
       gsap.from(splitTitle.chars, {
         duration: 0.8,
-        x: 240,
+        x: 540,
         stagger: 0.03,
         ease: "expo",
         delay: 0.8,
