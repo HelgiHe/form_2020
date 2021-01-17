@@ -2,7 +2,7 @@
 @import "../../static/fonts/fonts.css";
 
 :root {
-  --white: #f1f2f6;
+  --white: #fff;
   --bone-white: #f1f2f6;
   --blackish: #1e2022;
   --lightGrey: #f0f5f9;
@@ -11,6 +11,7 @@
   --lightblue: #dbe2ef;
   --midblue: #3f72af;
   --darkblue: #222e50;
+  --text: #333;
   --purplish: hsl(288.6, 10%, 90%);
 }
 
